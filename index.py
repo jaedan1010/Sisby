@@ -40,7 +40,7 @@ async def on_guild_remove(guild):
 async def on_message(message):
     try:
         if message.content == f"{prefix} 도움말" or message.content == f"{prefix} help":
-            await message.channel.send("에베베")
+            await message.channel.send(f"")
         if message.content == f"{prefix}" or message.content == f"{prefix} hellothisisverification":
             await message.channel.send(f"안녕하세요! 저는 {client.user.name}이에요! 시스비는 현재 {ver} 버전이고, 주인은 {client.get_user(726350177601978438)}(726350177601978438)입니다!\n저는 인공지능이에요! 접두사는 `{prefix}`입니다!")
 
@@ -294,6 +294,9 @@ async def on_message(message):
                     await message.delete()
                 except:
                     pass
+
+        if message.content == f"{prefix} 오픈소스":
+            await message.channel.send(embed = discord.Embed(colour=0xff00, title="Sisby OPEN SOURCE", description=f"여기에는 Sisby의 오픈소스가 담겨있어요!\n[여기를 확인해보세요!](https://github.com/samsunghappytree123/Sisby)").set_footer(text=message.author, icon_url=message.author.avatar_url))
 
     except Exception as ex:
         await message.channel.send(f"오류가 발생하였습니다.\n오류 내용 : {ex}")
