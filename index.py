@@ -39,8 +39,8 @@ async def on_guild_remove(guild):
 @client.event
 async def on_message(message):
     try:
-        if message.content == f"{prefix} 도움말" or message.content == f"{prefix} help":
-            await message.channel.send(f"")
+#        if message.content == f"{prefix} 도움말" or message.content == f"{prefix} help":
+#            await message.channel.send(f"")
         if message.content == f"{prefix}" or message.content == f"{prefix} hellothisisverification":
             await message.channel.send(f"안녕하세요! 저는 {client.user.name}이에요! 시스비는 현재 {ver} 버전이고, 주인은 {client.get_user(726350177601978438)}(726350177601978438)입니다!\n저는 인공지능이에요! 접두사는 `{prefix}`입니다!")
 
