@@ -2,7 +2,6 @@ import discord
 import asyncio
 import datetime
 import koreanbots
-from pingpongpy.api import pingpongbuilder
 import os
 import json
 client = discord.Client()
