@@ -5,13 +5,11 @@ import koreanbots
 import os
 import json
 client = discord.Client()
-with open('config.json') as f:
-    data = json.load(f)
-token = data['TOKEN']
+token = "NzI2Mzc2MzExNzEwNTQ4MDQ5.XvnDqA.pZoVIH1SsIg2_MyIkkdfw39x1d4"
 ver = "Beta"
 prefix = "시스비"
 owner = 726350177601978438
-Bot = koreanbots.Client(client, data['KOREANBOTS_TOKEN'])
+Bot = koreanbots.Client(client, "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcyNjM3NjMxMTcxMDU0ODA0OSIsImlhdCI6MTU5MzQyMDQzMSwiZXhwIjoxNjI0OTc4MDMxfQ.DOkerXgDLBstU903eHXATdwqm_EJY0-HuLGU4MSjMKpAJgL3TWTEUl623LGeQARHvya4IxpCqbOnGR5MXMCMgJUSOvJV0ll0tz13eqqTk8ilP34_2Kos5SuAeCBls6vrwfGJXmnOD7po1xvBBXi7EnvwLjouvKqZBaICBDDvVVg")
 ready = 726582051758800959
 bug = 726646354407063595
 botsv = 726646974501355573
