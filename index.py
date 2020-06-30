@@ -314,9 +314,9 @@ async def on_message(message):
                         if "봇-공지" in j.name or "봇_공지" in j.name or "봇공지" in j.name or "bot_announcement" in j.name:
                             if str(j.type)=='text':
                                 try:
+                                    oksv += 1
                                     await j.send(embed=embed)
                                     alla = True
-                                    oksv += 1
                                 except:
                                     pass
                                 break
@@ -327,11 +327,11 @@ async def on_message(message):
                             pass
                         if str(chan.type)=='text':
                             try:
-                                await chan.send(embed=embed)
                                 oksv += 1
+                                await chan.send(embed=embed)
                             except:
                                 pass
-                await message.channel.send(f"**`📢 공지 발신 완료 📢`**\n\n{len(client.guilds)}개의 서버 중 {oksv}개의 서버에 발신 완료, {len(client.guilds) - oksv}개의 서버에 발신 실패.")
+                await message.channel.send(f"**`📢 공지 발신 완료 📢`**\n\n{len(client.guilds)}개의 서버 중 {oksv}개의 서버에 발신 완료, {len(client.guilds) - oksv}개의 서버에 발신 실패")
             else:
                 await message.channel.send('니놈이 너무 하찮아서 사용을 못해요..')
 
