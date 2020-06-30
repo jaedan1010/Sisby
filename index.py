@@ -293,8 +293,47 @@ async def on_message(message):
                 except:
                     pass
 
-        if message.content == f"{prefix} 오픈소스":
-            await message.channel.send(embed = discord.Embed(colour=0xff00, title="Sisby OPEN SOURCE", description=f"여기에는 Sisby의 오픈소스가 담겨있어요!\n[여기를 확인해보세요!](https://github.com/samsunghappytree123/Sisby)").set_footer(text=message.author, icon_url=message.author.avatar_url))
+        if message.content.startswith(f"{prefix} 공지"):
+            if message.author.id == owner:
+                msg = message.content[7:]
+                embed = discord.Embed(
+                    title = msg.split('&&')[0],
+                    description = msg.split('&&')[1] + f"\n\n이 채널에 공지가 오기 싫다면 `봇-공지` 채널을 만들어주세요!\n[{client.user.name} SUPPORT](https://discord.gg/HWZBBnR)\n[{client.user.name} 좋아요 누르기](https://koreanbots.dev/bots/726376311710548049)",
+                    colour = discord.Colour.blue(),
+                    timestamp = message.created_at
+                ).set_footer(icon_url=message.author.avatar_url, text=f'{message.author} - 인증됨') .set_thumbnail(url=client.user.avatar_url_as(format=None, static_format="png", size=1024))
+                for i in client.guilds:
+                    arr=  [0]
+                    alla = False
+                    flag = True
+                    z = 0
+                    oksv = 0
+                    for j in i.channels:
+                        arr.append(j.id)
+                        z+=1
+                        if "봇-공지" in j.name or "봇_공지" in j.name or "봇공지" in j.name or "bot_announcement" in j.name:
+                            if str(j.type)=='text':
+                                try:
+                                    await j.send(embed=embed)
+                                    alla = True
+                                    oksv += 1
+                                except:
+                                    pass
+                                break
+                    if alla==False:
+                        try:
+                            chan=i.channels[1]
+                        except:
+                            pass
+                        if str(chan.type)=='text':
+                            try:
+                                await chan.send(embed=embed)
+                                oksv += 1
+                            except:
+                                pass
+                await message.channel.send(f"**`📢 공지 발신 완료 📢`**\n\n{len(client.guilds)}개의 서버 중 {oksv}개의 서버에 발신 완료, {len(client.guilds) - oksv}개의 서버에 발신 실패.")
+            else:
+                await message.channel.send('니놈이 너무 하찮아서 사용을 못해요..')
 
     except Exception as ex:
         await message.channel.send(f"오류가 발생하였습니다.\n오류 내용 : {ex}")
