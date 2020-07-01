@@ -4,6 +4,7 @@ import datetime
 import koreanbots
 import os
 import json
+import aiohttp
 client = discord.Client()
 token = "NzI2Mzc2MzExNzEwNTQ4MDQ5.XvnDqA.pZoVIH1SsIg2_MyIkkdfw39x1d4"
 ver = "Beta"
@@ -14,6 +15,8 @@ ready = 727361177604325396
 bug = 727361427173670923
 botsv = 727361381157830658
 건의 = 727361465274597388
+pingpongurl = "https://builder.pingpong.us/api/builder/5ef73186e4b0a5ea92dbf5db/integration/v0.2/custom/"
+pingpongauth = "Basic a2V5OmMzZGU2ZGI0ODAxZmU1MzVjNjY1MmZkNzEzMjJhN2Vh"
 
 @client.event
 async def on_ready():
@@ -334,6 +337,25 @@ async def on_message(message):
                 await message.channel.send(f"**`📢 공지 발신 완료 📢`**\n\n{len(client.guilds)}개의 서버 중 {oksv}개의 서버에 발신 완료, {len(client.guilds) - oksv}개의 서버에 발신 실패")
             else:
                 await message.channel.send('니놈이 너무 하찮아서 사용을 못해요..')
+
+        else:
+                header = {
+                    'Authorization': pingpongauth,
+                    'Content-Type': 'application/json'
+                }
+                param = {
+                    'request': {
+                        'query': message.content
+                    }
+                }
+                async with aiohttp.ClientSession(headers=header) as session:
+                    async with session.post(pingpongurl+f'/{message.author.id}', json=param) as res:
+                        data = await res.json()
+                        assert 'response' in data
+                        assert 'replies' in data['response']
+                        for reply in data['response']['replies']:
+                            if 'text' in reply:
+                                await message.channel.send(reply['text'])
 
     except Exception as ex:
         await message.channel.send(f"오류가 발생하였습니다.\n오류 내용 : {ex}")

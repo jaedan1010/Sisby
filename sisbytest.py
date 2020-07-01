@@ -1,6 +1,8 @@
 import asyncio
 import aiohttp
 import discord
+pingpongurl = "https://builder.pingpong.us/api/builder/5ef73186e4b0a5ea92dbf5db/integration/v0.2/custom/"
+pingpongauth = "Basic a2V5OmMzZGU2ZGI0ODAxZmU1MzVjNjY1MmZkNzEzMjJhN2Vh"
 client = discord.Client()
 @client.event
 async def on_ready():
@@ -8,18 +10,17 @@ async def on_ready():
 @client.event
 async def on_message(message):
     if message.author.bot: return
-    m = message.content
     header = {
-        'Authorization': os.getenv("PINGPONG_AUTH"),
+        'Authorization': pingpongauth,
         'Content-Type': 'application/json'
     }
     param = {
         'request': {
-            'query': m.content[4:]
+            'query': message.content
         }
     }
     async with aiohttp.ClientSession(headers=header) as session:
-        async with session.post(os.getenv('PINGPOING_URL')+f'/{message.author.id}', json=param) as res:
+        async with session.post(pingpongurl+f'/{message.author.id}', json=param) as res:
             data = await res.json()
             assert 'response' in data
             assert 'replies' in data['response']
