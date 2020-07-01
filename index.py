@@ -40,6 +40,7 @@ async def on_guild_remove(guild):
 @client.event
 async def on_message(message):
     try:
+        if message.author.bot: return
 #        if message.content == f"{prefix} 도움말" or message.content == f"{prefix} help":
 #            await message.channel.send(f"")
         if message.content == f"{prefix}" or message.content == f"{prefix} hellothisisverification":
@@ -339,23 +340,24 @@ async def on_message(message):
                 await message.channel.send('니놈이 너무 하찮아서 사용을 못해요..')
 
         else:
-                header = {
-                    'Authorization': pingpongauth,
-                    'Content-Type': 'application/json'
+            msg = message.content[4:]
+            header = {
+                'Authorization': pingpongauth,
+                'Content-Type': 'application/json'
+            }
+            param = {
+                'request': {
+                    'query': msg
                 }
-                param = {
-                    'request': {
-                        'query': message.content
-                    }
-                }
-                async with aiohttp.ClientSession(headers=header) as session:
-                    async with session.post(pingpongurl+f'/{message.author.id}', json=param) as res:
-                        data = await res.json()
-                        assert 'response' in data
-                        assert 'replies' in data['response']
-                        for reply in data['response']['replies']:
-                            if 'text' in reply:
-                                await message.channel.send(reply['text'])
+            }
+            async with aiohttp.ClientSession(headers=header) as session:
+                async with session.post(pingpongurl+f'/{message.author.id}', json=param) as res:
+                    data = await res.json()
+                    assert 'response' in data
+                    assert 'replies' in data['response']
+                    for reply in data['response']['replies']:
+                        if 'text' in reply:
+                            await message.channel.send(reply['text'])
 
     except Exception as ex:
         await message.channel.send(f"오류가 발생하였습니다.\n오류 내용 : {ex}")
