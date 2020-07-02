@@ -6,7 +6,7 @@ import os
 import json
 import aiohttp
 client = discord.Client()
-token = "NzI2Mzc2MzExNzEwNTQ4MDQ5.XvnDqA.pZoVIH1SsIg2_MyIkkdfw39x1d4"
+token = "NzI2Mzc2MzExNzEwNTQ4MDQ5.XvxF6g.AUggdaie1JSn5hYgGHqDU0N_En4"
 ver = "Beta"
 prefix = "시스비"
 owner = 726350177601978438
@@ -40,6 +40,7 @@ async def on_guild_remove(guild):
 @client.event
 async def on_message(message):
     try:
+        if not message.content.startswith(f"{prefix}"): return
         if message.author.bot: return
 #        if message.content == f"{prefix} 도움말" or message.content == f"{prefix} help":
 #            await message.channel.send(f"")
@@ -217,7 +218,7 @@ async def on_message(message):
                                 reason = message.content.split('&&')[1]
                             except:
                                 reason = "사유 없음"
-                            await message.guild.kick(user, reason = f"{message.author}에 의해서 {user}를 추방하였습니다.\n사유 : {reason}")
+                            await message.guild.kick(user, reason = f"{reason}")
                             await message.channel.send(f"``{message.author}``에 의해서 ``{user}``를 추방하였습니다.\n사유 : {reason}")
                             try:
                                 await user.send(f"``{message.author}``에 의해서 ``{user}``를 추방하였습니다.\n사유 : {reason}")
@@ -249,7 +250,7 @@ async def on_message(message):
                             except:
                                 reason = "사유 없음"
                             un = await client.fetch_user(user)
-                            await message.guild.ban(await client.fetch_user(user), reason=f"{message.author}에 의해서 {un}를 차단하였습니다.\n사유 : {reason}")
+                            await message.guild.ban(await client.fetch_user(user), reason=f"{reason}")
                             await message.channel.send(f"``{message.author}``에 의해서 ``{un}``를 차단하였습니다.\n사유 : {reason}")
                     except IndexError:
                         await message.channel.send("형식이 틀린거같아요... 형식은 ``시스비 밴 <유저 맨션>&&<사유>``에요!")
@@ -274,7 +275,7 @@ async def on_message(message):
                         except:
                             reason = "사유 없음"
                         un = await client.fetch_user(user)
-                        await message.guild.unban(await client.fetch_user(user), reason=f"{message.author}에 의해서 {un}를 언밴하였습니다.\n사유 : {reason}")
+                        await message.guild.unban(await client.fetch_user(user), reason=f"{reason}")
                         await message.channel.send(f"``{message.author}``에 의해서 ``{un}``를 언밴하였습니다.\n사유 : {reason}")
                     except IndexError:
                         await message.channel.send("형식이 틀린거같아요... 형식은 ``시스비 밴 <유저 맨션>&&<사유>``에요!")
@@ -339,8 +340,8 @@ async def on_message(message):
             else:
                 await message.channel.send('니놈이 너무 하찮아서 사용을 못해요..')
 
-        else:
-            msg = message.content[4:]
+        if message.content.startswith(f"{prefix} 핑퐁"):
+            msg = message.content[7:]
             header = {
                 'Authorization': pingpongauth,
                 'Content-Type': 'application/json'
