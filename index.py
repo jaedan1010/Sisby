@@ -73,10 +73,6 @@ async def on_message(message):
 > 봇 서버 변동 (서버 수 변동, 서버 수만 수집.)
 > 버그로그
 > 건의로그
-
-==<포럼>==
-{client.user.name}의 서포트서버는 https://discord.gg/HWZBBnR
-네이버 카페는 https://cafe.naver.com/Sisby 입니다!
 """)
         if message.content == f"{prefix}" or message.content == f"{prefix} hellothisisverification":
             await message.channel.send(f"안녕하세요! 저는 {client.user.name}이에요! 시스비는 현재 {ver} 버전이고, 주인은 {client.get_user(726350177601978438)}(726350177601978438)입니다!\n저는 인공지능이에요! 접두사는 `{prefix}`입니다!")
