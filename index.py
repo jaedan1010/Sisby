@@ -49,7 +49,7 @@ async def on_message(message):
 접두사는 {prefix}이고, 현재 {ver} 버전입니다!
 **<> - 필수, [] - 선택**
 
-```==<명령어들>==
+==<명령어들>==
 {prefix} 정보 / {prefix} 정보 [@유저 맨션]
 > 유저의 정보를 조회합니다.
 {prefix} 서버정보
@@ -65,7 +65,7 @@ async def on_message(message):
 {prefix} 언밴 <@유저 맨션>
 > {client.user.name}으로 해당 유저를 언밴합니다. (멤버 차단하기 권한 필요)
 {prefix} 공지 <제목>&&<내용>
-> {client.user.name}으로 공지를 발신합니다. (Bot Developer 권한 필요)```
+> {client.user.name}으로 공지를 발신합니다. (Bot Developer 권한 필요)
 """)
         if message.content == f"{prefix}" or message.content == f"{prefix} hellothisisverification":
             await message.channel.send(f"안녕하세요! 저는 {client.user.name}이에요! 시스비는 현재 {ver} 버전이고, 주인은 {client.get_user(726350177601978438)}(726350177601978438)입니다!\n저는 인공지능이에요! 접두사는 `{prefix}`입니다!")
