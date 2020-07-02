@@ -22,7 +22,7 @@ pingpongauth = "Basic a2V5OmMzZGU2ZGI0ODAxZmU1MzVjNjY1MmZkNzEzMjJhN2Vh"
 async def on_ready():
     print(client.user.name)
     print("ready")
-    await client.change_presence(status=discord.Status.online, activity=discord.Game(name=f"{client.user.name} 버전 {ver}"))
+    await client.change_presence(status=discord.Status.online, activity=discord.Game(name=f"{prefix} 도움말 | 버전 {ver}"))
     await client.get_channel(int(ready)).send(embed = discord.Embed(title="봇이 준비되었습니다.").set_footer(text=client.user, icon_url=client.user.avatar_url_as(format=None, static_format="png", size=1024)))
 
 @client.event
@@ -42,8 +42,31 @@ async def on_message(message):
     try:
         if not message.content.startswith(f"{prefix}"): return
         if message.author.bot: return
-#        if message.content == f"{prefix} 도움말" or message.content == f"{prefix} help":
-#            await message.channel.send(f"")
+        if message.content == f"{prefix} 도움말" or message.content == f"{prefix} help":
+            await message.channel.send(f"""
+안녕하세요! {client.user.name}이에요!
+저는 많은 명령어가 있어요!
+접두사는 {prefix}이고, 현재 {ver} 버전입니다!
+**<> - 필수, [] - 선택**
+
+```==<명령어들>==
+{prefix} 정보 / {prefix} 정보 [@유저 맨션]
+> 유저의 정보를 조회합니다.
+{prefix} 서버정보
+> 서버정보를 조회합니다.
+{prefix} 건의 <건의내용>
+> {client.user.name}에서 필요한 기능을 건의합니다.
+{prefix} 핑퐁 <아무말>
+> 핑퐁빌더로 말합니다.
+{prefix} 킥 <@유저 맨션>
+> {client.user.name}으로 해당 유저를 추방합니다. (멤버 추방하기 권한 필요)
+{prefix} 밴 <@유저 맨션>
+> {client.user.name}으로 해당 유저를 차단합니다. (멤버 차단하기 권한 필요)
+{prefix} 언밴 <@유저 맨션>
+> {client.user.name}으로 해당 유저를 언밴합니다. (멤버 차단하기 권한 필요)
+{prefix} 공지 <제목>&&<내용>
+> {client.user.name}으로 공지를 발신합니다. (Bot Developer 권한 필요)```
+""")
         if message.content == f"{prefix}" or message.content == f"{prefix} hellothisisverification":
             await message.channel.send(f"안녕하세요! 저는 {client.user.name}이에요! 시스비는 현재 {ver} 버전이고, 주인은 {client.get_user(726350177601978438)}(726350177601978438)입니다!\n저는 인공지능이에요! 접두사는 `{prefix}`입니다!")
 
