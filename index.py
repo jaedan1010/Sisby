@@ -301,6 +301,7 @@ async def on_message(message):
         if message.content.startswith(f"{prefix} 공지"):
             if message.author.id == owner:
                 msg = message.content[7:]
+                oksv = 0
                 embed = discord.Embed(
                     title = msg.split('&&')[0],
                     description = msg.split('&&')[1] + f"\n\n이 채널에 공지가 오기 싫다면 `봇-공지` 채널을 만들어주세요!\n[{client.user.name} SUPPORT](https://discord.gg/HWZBBnR)\n[{client.user.name} 좋아요 누르기](https://koreanbots.dev/bots/726376311710548049)",
@@ -312,7 +313,6 @@ async def on_message(message):
                     alla = False
                     flag = True
                     z = 0
-                    oksv = 0
                     for j in i.channels:
                         arr.append(j.id)
                         z+=1
