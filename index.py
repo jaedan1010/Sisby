@@ -6,7 +6,7 @@ import os
 import json
 import aiohttp
 client = discord.Client()
-token = "NzI2Mzc2MzExNzEwNTQ4MDQ5.XvxF6g.AUggdaie1JSn5hYgGHqDU0N_En4"
+token = "NzI2Mzc2MzExNzEwNTQ4MDQ5.Xv1UZA.wg34Jjd6HtQLD-a-ogdc2oetO7o"
 ver = "Beta"
 prefix = "시스비"
 owner = 726350177601978438
