@@ -81,10 +81,10 @@ async def on_message(message):
             if str(message.content[7:]) == '':
                 user = message.author
                 date = datetime.datetime.utcfromtimestamp(((int(user.id) >> 22) + 1420070400000) / 1000)
-                status_dict: dict = {discord.Status.online: '<:status_online:726399733026914335> 온라인',
-                    discord.Status.offline: '<:status_offline:726399732930576434> 오프라인',
-                    discord.Status.idle: "<:status_idle:726399733081571348> 자리비움",
-                    discord.Status.do_not_disturb: "<:status_dnd:726399732557283386> 방해금지"}
+                status_dict: dict = {discord.Status.online: '<:status_online:728527943827062804> 온라인',
+                    discord.Status.offline: '<:status_offline:728527943831126036> 오프라인',
+                    discord.Status.idle: "<:status_idle:728527943806091364> 자리비움",
+                    discord.Status.do_not_disturb: "<:status_dnd:728527943684456459> 방해금지"}
                 user_status = status_dict[user.status]
                 if not len(message.author.roles) == 1:
                     roles = [role for role in user.roles]
