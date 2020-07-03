@@ -10,21 +10,5 @@ async def on_ready():
 @client.event
 async def on_message(message):
     if message.author.bot: return
-    header = {
-        'Authorization': pingpongauth,
-        'Content-Type': 'application/json'
-    }
-    param = {
-        'request': {
-            'query': message.content
-        }
-    }
-    async with aiohttp.ClientSession(headers=header) as session:
-        async with session.post(pingpongurl+f'/{message.author.id}', json=param) as res:
-            data = await res.json()
-            assert 'response' in data
-            assert 'replies' in data['response']
-            for reply in data['response']['replies']:
-                if 'text' in reply:
-                    await message.channel.send(reply['text'])
+    print(message.author.is_on_mobile())
 client.run("NzI3Mzc2NDEzMTYxODE2MDg2.Xvq8IQ.klRja_iwGR2ncl9En_znNc2pgI8")
