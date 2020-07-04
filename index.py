@@ -5,18 +5,20 @@ import koreanbots
 import os
 import json
 import aiohttp
+from dotenv import load_dotenv
+load_dotenv(verbose=True)
 client = discord.Client()
-token = "NzI2Mzc2MzExNzEwNTQ4MDQ5.Xv1UZA.wg34Jjd6HtQLD-a-ogdc2oetO7o"
+token = os.getenv("TOKEN")
 ver = "Beta"
 prefix = "시스비"
 owner = 726350177601978438
-Bot = koreanbots.Client(client, "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcyNjM3NjMxMTcxMDU0ODA0OSIsImlhdCI6MTU5MzUxMjMxNCwiZXhwIjoxNjI1MDY5OTE0fQ.bJsLxAaqE1jm5zYN14vhcyQA4yaPTUVaCKTvSZwAYoAmqiCKc4w7RKoZNqwH0EVA29YG8JfsQZwlmv7cgxsxbfRFMITGpIRSE5-gd2TCb-mHOkF9pP8razPTMI3eDYWRqVZbbMNNf-W2C0wp7M3svGvnGpfTTNhJCzDEcMrW45E")
+Bot = koreanbots.Client(client, os.getenv("KOREANBOTS_TOKEN"))
 ready = 727361177604325396
 bug = 727361427173670923
 botsv = 727361381157830658
 건의 = 727361465274597388
-pingpongurl = "https://builder.pingpong.us/api/builder/5ef73186e4b0a5ea92dbf5db/integration/v0.2/custom/"
-pingpongauth = "Basic a2V5OmMzZGU2ZGI0ODAxZmU1MzVjNjY1MmZkNzEzMjJhN2Vh"
+pingpongurl = os.getenv("PINGPONG_URL")
+pingpongauth = os.getenv("PINGPONG_AUTH")
 
 @client.event
 async def on_ready():
@@ -391,7 +393,7 @@ async def on_message(message):
                             await message.channel.send(reply['text'])
 
     except Exception as ex:
-        await message.channel.send(f"오류가 발생하였습니다.\n오류 내용 : {ex}")
         await client.get_channel(int(bug)).send(embed = discord.Embed(title="버그가 발생하였습니다.", description=ex).set_footer(text=message.author, icon_url=message.author.avatar_url))
+        await message.channel.send(f"오류가 발생하였습니다.\n오류 내용 : {ex}")
 
 client.run(token)
