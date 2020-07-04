@@ -26,6 +26,7 @@ async def on_ready():
     print("ready")
     await client.change_presence(status=discord.Status.online, activity=discord.Game(name=f"{prefix} 도움말 | 버전 {ver}"))
     await client.get_channel(int(ready)).send(embed = discord.Embed(title="봇이 준비되었습니다.").set_footer(text=client.user, icon_url=client.user.avatar_url_as(format=None, static_format="png", size=1024)))
+    Data = await Bot.getBot(client.user.id)
 
 @client.event
 async def on_guild_join(guild):
@@ -60,6 +61,8 @@ async def on_message(message):
 > {client.user.name}에서 필요한 기능을 건의합니다.
 {prefix} 핑퐁 <아무말>
 > 핑퐁빌더로 말합니다.
+{prefix} 초대
+> 봇 초대링크를 알려줍니다.
 {prefix} 킥 <@유저 맨션>
 > {client.user.name}으로 해당 유저를 추방합니다. (멤버 추방하기 권한 필요)
 {prefix} 밴 <@유저 맨션>
@@ -331,12 +334,13 @@ async def on_message(message):
                     pass
 
         if message.content.startswith(f"{prefix} 공지"):
+            Data = await Bot.getBot(client.user.id)
             if message.author.id == owner:
                 msg = message.content[7:]
                 oksv = 0
                 embed = discord.Embed(
                     title = msg.split('&&')[0],
-                    description = msg.split('&&')[1] + f"\n\n이 채널에 공지가 오기 싫다면 `봇-공지` 채널을 만들어주세요!\n[{client.user.name} SUPPORT](https://discord.gg/HWZBBnR)\n[{client.user.name} 좋아요 누르기](https://koreanbots.dev/bots/726376311710548049)",
+                    description = msg.split('&&')[1] + f"\n\n이 채널에 공지가 오기 싫다면 `봇-공지` 채널을 만들어주세요!\n[{client.user.name} SUPPORT](https://discord.gg/HWZBBnR)\n[{client.user.name} 좋아요 누르기](https://koreanbots.dev/bots/726376311710548049)  {Data.votes} ❤",
                     colour = discord.Colour.blue(),
                     timestamp = message.created_at
                 ).set_footer(icon_url=message.author.avatar_url, text=f'{message.author} - 인증됨') .set_thumbnail(url=client.user.avatar_url_as(format=None, static_format="png", size=1024))
@@ -371,6 +375,11 @@ async def on_message(message):
                 await message.channel.send(f"**`📢 공지 발신 완료 📢`**\n\n{len(client.guilds)}개의 서버 중 {oksv}개의 서버에 발신 완료, {len(client.guilds) - oksv}개의 서버에 발신 실패")
             else:
                 await message.channel.send('니놈이 너무 하찮아서 사용을 못해요..')
+
+        if message.content == f"{prefix} 초대":
+            Data = await Bot.getBot(client.user.id)
+            embed = discord.Embed(title=f"{client.user.name} 봇 초대하기", description=f"[봇 초대하기](https://discord.com/oauth2/authorize?client_id=726376311710548049&permissions=70641734&scope=bot)\n[KOREANBOTS](https://koreanbots.dev/bots/726376311710548049){Data.votes} ❤")
+            await message.channel.send(embed=embed)
 
         if message.content.startswith(f"{prefix} 핑퐁"):
             msg = message.content[7:]
