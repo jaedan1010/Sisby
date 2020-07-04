@@ -340,7 +340,7 @@ async def on_message(message):
                 oksv = 0
                 embed = discord.Embed(
                     title = msg.split('&&')[0],
-                    description = msg.split('&&')[1] + f"\n\n이 채널에 공지가 오기 싫다면 `봇-공지` 채널을 만들어주세요!\n[{client.user.name} SUPPORT](https://discord.gg/HWZBBnR)\n[{client.user.name} 좋아요 누르기](https://koreanbots.dev/bots/726376311710548049)  {Data.votes} ❤",
+                    description = msg.split('&&')[1] + f"\n\n이 채널에 공지가 오기 싫다면 `봇-공지` 채널을 만들어주세요!\n[{client.user.name} SUPPORT](https://discord.gg/HWZBBnR)\n[{client.user.name} 좋아요 누르기](https://koreanbots.dev/bots/726376311710548049) {Data.votes} ❤",
                     colour = discord.Colour.blue(),
                     timestamp = message.created_at
                 ).set_footer(icon_url=message.author.avatar_url, text=f'{message.author} - 인증됨') .set_thumbnail(url=client.user.avatar_url_as(format=None, static_format="png", size=1024))
@@ -378,7 +378,7 @@ async def on_message(message):
 
         if message.content == f"{prefix} 초대":
             Data = await Bot.getBot(client.user.id)
-            embed = discord.Embed(title=f"{client.user.name} 봇 초대하기", description=f"[봇 초대하기](https://discord.com/oauth2/authorize?client_id=726376311710548049&permissions=70641734&scope=bot)\n[KOREANBOTS](https://koreanbots.dev/bots/726376311710548049){Data.votes} ❤")
+            embed = discord.Embed(title=f"{client.user.name} 봇 초대하기", description=f"[봇 초대하기](https://discord.com/oauth2/authorize?client_id=726376311710548049&permissions=70641734&scope=bot)\n[KOREANBOTS](https://koreanbots.dev/bots/726376311710548049) {Data.votes} ❤")
             await message.channel.send(embed=embed)
 
         if message.content.startswith(f"{prefix} 핑퐁"):
