@@ -384,10 +384,11 @@ async def on_message(message):
             await message.channel.send(embed=embed)
 
         if message.content.startswith(f"{prefix} 청소"):
-            if message.guild.get_member(client.user.id).guild_permissions.menage_message:
-                if message.author.guild_permissions.menage_message:
+            if message.guild.get_member(client.user.id).guild_permissions.manage_messages:
+                if message.author.guild_permissions.manage_messages:
                     try:
-                        number = message.content.split(' ')
+                        number = message.content.split(' ')[2]
+                        print(number)
                         await message.delete()
                         await message.channel.purge(limit = int(number))
                         embed = discord.Embed(title="채팅 청소 완료!", description=f"{int(number)}개의 메세지를 삭제했어요!")
