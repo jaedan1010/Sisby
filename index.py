@@ -391,7 +391,7 @@ async def on_message(message):
                         print(number)
                         await message.delete()
                         await message.channel.purge(limit = int(number))
-                        embed = discord.Embed(title="채팅 청소 완료!", description=f"{int(number)}개의 메세지를 삭제했어요!")
+                        embed = discord.Embed(title="채팅 청소 완료!", description=f"{int(number)}개의 메세지를 삭제했어요!\n\n||~~모조리 싹다 갈아엎어 주세요~~||")
                         embed.set_footer(text=message.author, icon_url=message.author.avatar_url)
                         msg = await message.channel.send(embed=embed)
                         await asyncio.sleep(5)
@@ -401,7 +401,7 @@ async def on_message(message):
                 else:
                     await message.channel.send("당신은 권한이 없어요!\n필요 권한 : **``메세지 관리하기``**")
             else:
-                await message.channel.send("제가 킥을 할 수 있는 권한을 가지고 있지 않아요!\n필요 권한 : **``메세지 관리하기``**")
+                await message.channel.send("제가 청소를 할 수 있는 권한을 가지고 있지 않아요!\n필요 권한 : **``메세지 관리하기``**")
 
         if message.content.startswith(f"{prefix} 핑퐁"):
             msg = message.content[7:]
