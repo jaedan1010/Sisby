@@ -63,6 +63,8 @@ async def on_message(message):
 > 핑퐁빌더로 말합니다.
 {prefix} 초대
 > 봇 초대링크를 알려줍니다.
+{prefix} 청소 <메세지를 청소할 숫자>
+> {client.user.name}으로 해당 채널의 채팅을 <메세지를 청소할 숫자>만큼 지웁니다. (메세지 관리하기 권한 필요)
 {prefix} 킥 <@유저 맨션>
 > {client.user.name}으로 해당 유저를 추방합니다. (멤버 추방하기 권한 필요)
 {prefix} 밴 <@유저 맨션>
@@ -297,7 +299,7 @@ async def on_message(message):
                 await message.channel.send("제가 밴을 할 수 있는 권한을 가지고 있지 않아요!\n필요 권한 : **``멤버 차단하기``**")
 
         if message.content.startswith(f"{prefix} 언밴"):
-            if message.guild.get_member(client.user.id).guild_permissions.ban_members == True:
+            if message.guild.get_member(client.user.id).guild_permissions.ban_members:
                 if message.author.guild_permissions.ban_members:
                     try:
                         try:
@@ -380,6 +382,25 @@ async def on_message(message):
             Data = await Bot.getBot(client.user.id)
             embed = discord.Embed(title=f"{client.user.name} 봇 초대하기", description=f"[봇 초대하기](https://discord.com/oauth2/authorize?client_id=726376311710548049&permissions=70641734&scope=bot)\n[KOREANBOTS](https://koreanbots.dev/bots/726376311710548049) {Data.votes} ❤")
             await message.channel.send(embed=embed)
+
+        if message.content.startswith(f"{prefix} 청소"):
+            if message.guild.get_member(client.user.id).guild_permissions.menage_message:
+                if message.author.guild_permissions.menage_message:
+                    try:
+                        number = message.content.split(' ')
+                        await message.delete()
+                        await message.channel.purge(limit = int(number))
+                        embed = discord.Embed(title="채팅 청소 완료!", description=f"{int(number)}개의 메세지를 삭제했어요!")
+                        embed.set_footer(text=message.author, icon_url=message.author.avatar_url)
+                        msg = await message.channel.send(embed=embed)
+                        await asyncio.sleep(5)
+                        await msg.delete()
+                    except IndexError:
+                        await message.channel.send("형식이 틀린거같아요... 형식은 ``시스비 청소 <삭제할 메세지 개수>``에요!")
+                else:
+                    await message.channel.send("당신은 권한이 없어요!\n필요 권한 : **``메세지 관리하기``**")
+            else:
+                await message.channel.send("제가 킥을 할 수 있는 권한을 가지고 있지 않아요!\n필요 권한 : **``메세지 관리하기``**")
 
         if message.content.startswith(f"{prefix} 핑퐁"):
             msg = message.content[7:]
