@@ -427,7 +427,7 @@ async def on_message(message):
 
         if message.content.startswith(f"{prefix} 컴파일"):
             if message.author.id == owner:
-                a=message.content[4:]
+                a=message.content[7:]
                 try:
                     msg=await message.channel.send(embed=discord.Embed(color=0x2F3136, title="머리를 깍는 중...",description=f"""📥INPUT📥
 ```py
