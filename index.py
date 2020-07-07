@@ -427,9 +427,9 @@ async def on_message(message):
 
         if message.content.startswith(f"{prefix} 컴파일"):
             if message.author.id == owner:
-                a=message.content[7:]
+                a=message.content[8:]
                 try:
-                    msg=await message.channel.send(embed=discord.Embed(color=0x2F3136, title="머리를 깍는 중...",description=f"""📥INPUT📥
+                    msg=await message.channel.send(embed=discord.Embed(color=0x2F3136, title="컴파일하는중...",description=f"""📥INPUT📥
 ```py
 {a}
 ```
@@ -439,7 +439,7 @@ evaling...
 ```"""))
                     aa=await eval(a)
                 except Exception as e:
-                    await msg.edit(embed=discord.Embed(color=0x2F3136, title="머리를 깍은 결과",description=f"""📥INPUT📥
+                    await msg.edit(embed=discord.Embed(color=0x2F3136, title="컴파일 결과",description=f"""📥INPUT📥
                 
 ```py
 {a}          
@@ -451,7 +451,7 @@ evaling...
                     try:
                         aa = eval(a)
                     except Exception as e:
-                        await msg.edit(embed=discord.Embed(color=0x2F3136, title="머리를 깍은 결과",description=f"""📥INPUT📥
+                        await msg.edit(embed=discord.Embed(color=0x2F3136, title="컴파일 결과",description=f"""📥INPUT📥
                 
 ```py
 {a}
@@ -461,7 +461,7 @@ evaling...
 {e}
 ```"""))
                     else:
-                        await msg.edit(embed=discord.Embed(color=0x2F3136, title=f"머리를 깍은 결과",description=f"""📥INPUT📥
+                        await msg.edit(embed=discord.Embed(color=0x2F3136, title=f"컴파일 결과",description=f"""📥INPUT📥
 ```py
 {a}
 ```
@@ -470,7 +470,7 @@ evaling...
 {aa}
 ```""")) 
                 else:
-                    await msg.edit(embed=discord.Embed(color=0x2F3136, title="머리를 깍은 결과",description=f"""📥INPUT📥
+                    await msg.edit(embed=discord.Embed(color=0x2F3136, title="컴파일 결과",description=f"""📥INPUT📥
 ```py
 {a}
 ```
