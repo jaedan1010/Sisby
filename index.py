@@ -2,7 +2,9 @@ import discord
 import asyncio
 import datetime
 import koreanbots
+import datetime
 import os
+import math
 import json
 import aiohttp
 from dotenv import load_dotenv
@@ -376,7 +378,7 @@ async def on_message(message):
                                 pass
                 await message.channel.send(f"**`📢 공지 발신 완료 📢`**\n\n{len(client.guilds)}개의 서버 중 {oksv}개의 서버에 발신 완료, {len(client.guilds) - oksv}개의 서버에 발신 실패")
             else:
-                await message.channel.send('니놈이 너무 하찮아서 사용을 못해요..')
+                await message.channel.send('이 명령어를 쓰려면 최소 Bot Developer 권한이 필요합니다.')
 
         if message.content == f"{prefix} 초대":
             Data = await Bot.getBot(client.user.id)
@@ -422,6 +424,62 @@ async def on_message(message):
                     for reply in data['response']['replies']:
                         if 'text' in reply:
                             await message.channel.send(reply['text'])
+
+        if message.content.startswith(f"{prefix} 컴파일"):
+            if message.author.id == owner:
+                a=message.content[4:]
+                try:
+                    msg=await message.channel.send(embed=discord.Embed(color=0x2F3136, title="머리를 깍는 중...",description=f"""📥INPUT📥
+```py
+{a}
+```
+📤OUTPUT📤
+```py
+evaling...
+```"""))
+                    aa=await eval(a)
+                except Exception as e:
+                    await msg.edit(embed=discord.Embed(color=0x2F3136, title="머리를 깍은 결과",description=f"""📥INPUT📥
+                
+```py
+{a}          
+```
+📤OUTPUT📤
+```py
+{e}
+```"""))
+                    try:
+                        aa = eval(a)
+                    except Exception as e:
+                        await msg.edit(embed=discord.Embed(color=0x2F3136, title="머리를 깍은 결과",description=f"""📥INPUT📥
+                
+```py
+{a}
+```
+📤OUTPUT📤
+```py
+{e}
+```"""))
+                    else:
+                        await msg.edit(embed=discord.Embed(color=0x2F3136, title=f"머리를 깍은 결과",description=f"""📥INPUT📥
+```py
+{a}
+```
+📤OUTPUT📤
+```py
+{aa}
+```""")) 
+                else:
+                    await msg.edit(embed=discord.Embed(color=0x2F3136, title="머리를 깍은 결과",description=f"""📥INPUT📥
+```py
+{a}
+```
+📤OUTPUT📤
+```py
+{aa}
+```"""))
+            else:
+                await message.channel.send('이 명령어를 쓰려면 최소 Bot Developer 권한이 필요합니다.')
 
     except Exception as ex:
         await client.get_channel(int(bug)).send(embed = discord.Embed(title="버그가 발생하였습니다.", description=ex).set_footer(text=message.author, icon_url=message.author.avatar_url))
