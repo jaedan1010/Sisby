@@ -575,7 +575,7 @@ evaling...
 
 <:dev:715085684905345064> Sisby Developer (Sisby 봇 개발자 전용 뱃지)
 <:heimteam:730330765212254251> Team Heim (Team Heim 팀원 전용 뱃지)
-badge += "<:bughunter:730322955212423269> Sisby Bug Hunter (Sisby 버그헌터 전용 뱃지)
+<:bughunter:730322955212423269> Sisby Bug Hunter (Sisby 버그헌터 전용 뱃지)
 <:happytree:730335761164927006> Happytree Special Badge (해피트리 스폐셜 뱃지)
 """))
 
