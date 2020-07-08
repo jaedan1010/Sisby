@@ -503,10 +503,10 @@ async def on_message(message):
             if message.author.id in owner:
                 a=message.content[8:]
                 if "token" in a or "KOREANBOTS_TOKEN" in a or "PINGPONG_URL" in a or "PINGPONG_AUTH" in a:
-                    await message.channel.send(embed=discord.Embed(color=0x2F3136, title="컴파일 결과",description=f"""📥INPUT📥
-            
+                    await message.channel.send(embed=discord.Embed(color=0x2F3136, title="컴파일 결과",description=f"""
+📥INPUT📥     
 ```py
-{a}          
+{a}
 ```
 📤OUTPUT📤
 ```py
@@ -514,7 +514,8 @@ async def on_message(message):
 ```"""))
                     return
                 try:
-                    msg=await message.channel.send(embed=discord.Embed(color=0x2F3136, title="컴파일하는중...",description=f"""📥INPUT📥
+                    msg=await message.channel.send(embed=discord.Embed(color=0x2F3136, title="컴파일하는중...",description=f"""
+📥INPUT📥
 ```py
 {a}
 ```
@@ -524,10 +525,10 @@ evaling...
 ```"""))
                     aa=await eval(a)
                 except Exception as e:
-                    await msg.edit(embed=discord.Embed(color=0x2F3136, title="컴파일 결과",description=f"""📥INPUT📥
-                
+                    await msg.edit(embed=discord.Embed(color=0x2F3136, title="컴파일 결과",description=f"""
+📥INPUT📥    
 ```py
-{a}          
+{a}
 ```
 📤OUTPUT📤
 ```py
@@ -536,8 +537,8 @@ evaling...
                     try:
                         aa = eval(a)
                     except Exception as e:
-                        await msg.edit(embed=discord.Embed(color=0x2F3136, title="컴파일 결과",description=f"""📥INPUT📥
-                
+                        await msg.edit(embed=discord.Embed(color=0x2F3136, title="컴파일 결과",description=f"""
+📥INPUT📥
 ```py
 {a}
 ```
@@ -546,7 +547,8 @@ evaling...
 {e}
 ```"""))
                     else:
-                        await msg.edit(embed=discord.Embed(color=0x2F3136, title=f"컴파일 결과",description=f"""📥INPUT📥
+                        await msg.edit(embed=discord.Embed(color=0x2F3136, title=f"컴파일 결과",description=f"""
+📥INPUT📥
 ```py
 {a}
 ```
@@ -555,7 +557,8 @@ evaling...
 {aa}
 ```""")) 
                 else:
-                    await msg.edit(embed=discord.Embed(color=0x2F3136, title="컴파일 결과",description=f"""📥INPUT📥
+                    await msg.edit(embed=discord.Embed(color=0x2F3136, title="컴파일 결과",description=f"""
+📥INPUT📥
 ```py
 {a}
 ```
