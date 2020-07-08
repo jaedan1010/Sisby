@@ -20,6 +20,8 @@ heimteam = [726350177601978438, 700561761690189875, 723670306102837258, 44793446
 # 삼성해피트리, OwO(Discord-api), 수현, 준홍, 배인블, mswgen
 bughunter = [726350177601978438, 534214957110394881]
 # 삼성해피트리, 제토
+happytree = [726350177601978438, 674877162557407242]
+# 삼성해피트리, 플로러
 Bot = koreanbots.Client(client, os.getenv("KOREANBOTS_TOKEN"))
 ready = 727361177604325396
 bug = 727361427173670923
@@ -98,13 +100,20 @@ async def on_message(message):
                     discord.Status.do_not_disturb: "<:status_dnd:728527943684456459> 방해금지"}
                 user_status = status_dict[user.status]
                 badge = ""
+                b = 0
                 if message.author.id in owner:
                     badge += "<:dev:715085684905345064> Sisby Developer\n"
+                    b = 1
                 if message.author.id in heimteam:
-                    badge += "<:heimteam:730330765212254251> Team Heim"
+                    badge += "<:heimteam:730330765212254251> Team Heim\n"
+                    b = 1
                 if message.author.id in bughunter:
                     badge += "<:bughunter:730322955212423269> Sisby Bug Hunter\n"
-                else:
+                    b = 1
+                if message.author.id in happytree:
+                    badge += "<:happytree:730335761164927006> Happytree Special Badge\n"
+                    b = 1
+                if not b == 1:
                     badge += "**뱃지가 없습니다!**"
                 if not len(message.author.roles) == 1:
                     roles = [role for role in user.roles]
@@ -135,13 +144,20 @@ async def on_message(message):
                             discord.Status.do_not_disturb: "<:status_dnd:728527943684456459> 방해금지"}
                         user_status = status_dict[user.status]
                         badge = ""
+                        b = 0
                         if user.id in owner:
                             badge += "<:dev:715085684905345064> Sisby Developer\n"
+                            b = 1
                         if user.id in heimteam:
                             badge += "<:heimteam:730330765212254251> Team Heim\n"
+                            b = 1
                         if user.id in bughunter:
                             badge += "<:bughunter:730322955212423269> Sisby Bug Hunter\n"
-                        else:
+                            b = 1
+                        if user.id in happytree:
+                            badge += "<:happytree:730335761164927006> Happytree Special Badge\n"
+                            b = 1
+                        if not b == 1:
                             badge += "**뱃지가 없습니다!**"
                         if not len(user.roles) == 1:
                             roles = [role for role in user.roles]
@@ -196,13 +212,20 @@ async def on_message(message):
                             discord.Status.do_not_disturb: "<:status_dnd:728527943684456459> 방해금지"}
                         user_status = status_dict[user.status]
                         badge = ""
+                        b = 0
                         if user.id in owner:
                             badge += "<:dev:715085684905345064> Sisby Developer\n"
+                            b = 1
                         if user.id in heimteam:
                             badge += "<:heimteam:730330765212254251> Team Heim\n"
+                            b = 1
                         if user.id in bughunter:
                             badge += "<:bughunter:730322955212423269> Sisby Bug Hunter\n"
-                        else:
+                            b = 1
+                        if user.id in happytree:
+                            badge += "<:happytree:730335761164927006> Happytree Special Badge\n"
+                            b = 1
+                        if not b == 1:
                             badge += "**뱃지가 없습니다!**"
                         if not len(user.roles) == 1:
                             roles = [role for role in user.roles]
@@ -537,6 +560,7 @@ evaling...
                 description = msg.split('&&')[1]
                 try:
                     await client.get_user(int(user)).send(f"{description}\n\n발신인 : {message.author}")
+                    await message.channel.send(f"{client.get_user(int(user))}님께 답변을 완료했어요!")
                 except Exception as ex:
                     await message.channel.send(f"오류가 발생했어요! 아마도 DM을 못보내서 오류난거같은데 확인해보세요!\n오류 : {ex}")
             else:
