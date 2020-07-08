@@ -15,6 +15,7 @@ token = os.getenv("TOKEN")
 ver = "Beta"
 prefix = "시스비"
 owner = [726350177601978438]
+bughunter = [726350177601978438, 534214957110394881]
 Bot = koreanbots.Client(client, os.getenv("KOREANBOTS_TOKEN"))
 ready = 727361177604325396
 bug = 727361427173670923
@@ -92,6 +93,13 @@ async def on_message(message):
                     discord.Status.idle: "<:status_idle:728527943806091364> 자리비움",
                     discord.Status.do_not_disturb: "<:status_dnd:728527943684456459> 방해금지"}
                 user_status = status_dict[user.status]
+                badge = ""
+                if message.author.id in owner:
+                    badge += "<:dev:715085684905345064> Sisby Developer\n"
+                if message.author.id in bughunter:
+                    badge += "<:bughunter:730322955212423269> Sisby Bug Hunter\n"
+                else:
+                    badge += "**뱃지가 없습니다!**"
                 if not len(message.author.roles) == 1:
                     roles = [role for role in user.roles]
                     embed=discord.Embed(colour=message.author.color, timestamp=message.created_at, title=f"유저정보 - {user}")
@@ -107,6 +115,7 @@ async def on_message(message):
                     embed.add_field(name="가장 높은 역할", value=f"{user.top_role.mention}", inline=False)
                 except:
                     embed.add_field(name=f"가진 역할들", value=f"**소유한 역할이 없습니다!**", inline=False)
+                embed.add_field(name="Sisby Badge", value=f"{badge}", inline=False)
                 embed.add_field(name="현재 유저 상태", value=f"{user_status}", inline=False)
                 await message.channel.send(embed=embed)
             else:
@@ -119,6 +128,13 @@ async def on_message(message):
                             discord.Status.idle: "<:status_idle:728527943806091364> 자리비움",
                             discord.Status.do_not_disturb: "<:status_dnd:728527943684456459> 방해금지"}
                         user_status = status_dict[user.status]
+                        badge = ""
+                        if message.author.id in owner:
+                            badge += "<:dev:715085684905345064> Sisby Developer\n"
+                        if message.author.id in bughunter:
+                            badge += "<:bughunter:730322955212423269> Sisby Bug Hunter\n"
+                        else:
+                            badge += "**뱃지가 없습니다!**"
                         if not len(user.roles) == 1:
                             roles = [role for role in user.roles]
                             embed=discord.Embed(colour=0xff00, timestamp=message.created_at, title=f"유저정보 - {user}")
@@ -134,6 +150,7 @@ async def on_message(message):
                             embed.add_field(name="가장 높은 역할", value=f"{user.top_role.mention}", inline=False)
                         except:
                             embed.add_field(name=f"가진 역할들", value=f"**소유한 역할이 없습니다!**", inline=False)
+                        embed.add_field(name="Sisby Badge", value=f"{badge}", inline=False)
                         embed.add_field(name="현재 유저 상태", value=f"{user_status}", inline=False)
                         await message.channel.send(embed=embed)
                     else:
@@ -170,6 +187,13 @@ async def on_message(message):
                             discord.Status.idle: "<:status_idle:728527943806091364> 자리비움",
                             discord.Status.do_not_disturb: "<:status_dnd:728527943684456459> 방해금지"}
                         user_status = status_dict[user.status]
+                        badge = ""
+                        if message.author.id in owner:
+                            badge += "<:dev:715085684905345064> Sisby Developer\n"
+                        if message.author.id in bughunter:
+                            badge += "<:bughunter:730322955212423269> Sisby Bug Hunter\n"
+                        else:
+                            badge += "**뱃지가 없습니다!**"
                         if not len(user.roles) == 1:
                             roles = [role for role in user.roles]
                             embed=discord.Embed(colour=0xff00, timestamp=message.created_at, title=f"유저정보 - {user}")
@@ -185,6 +209,7 @@ async def on_message(message):
                             embed.add_field(name="가장 높은 역할", value=f"{user.top_role.mention}", inline=False)
                         except:
                             embed.add_field(name=f"가진 역할들", value=f"**소유한 역할이 없습니다!**", inline=False)
+                        embed.add_field(name="Sisby Badge", value=f"{badge}", inline=False)
                         embed.add_field(name="현재 유저 상태", value=f"{user_status}", inline=False)
                         await message.channel.send(embed=embed)
                     else:
