@@ -14,8 +14,8 @@ client = discord.Client()
 token = os.getenv("TOKEN")
 ver = "Beta"
 prefix = "시스비"
-owner = [726350177601978438]
-# 삼성해피트리
+owner = [726350177601978438, 730338671017852948, 700561761690189875]
+# 삼성해피트리, 삼성해피트리 부계정, OwO(Discord-api)
 heimteam = [726350177601978438, 700561761690189875, 723670306102837258, 447934468603379724, 524515155254444032, 647736678815105037, 674877162557407242]
 # 삼성해피트리, OwO(Discord-api), 수현, 준홍, 배인블, mswgen, 플로러
 bughunter = [726350177601978438, 534214957110394881]
@@ -568,7 +568,7 @@ evaling...
             else:
                 await message.channel.send('이 명령어를 쓰려면 최소 Bot Developer 권한이 필요합니다.')
 
-        if message.content == f"{prefix} 뱃지":
+        if message.content == f"{prefix} 뱃지" or message.content == f"{prefix} 배지":
             await message.channel.send(embed=discord.Embed(colour=a, title=f"{client.user.name} 뱃지", description=f"""
 현재 존재하는 Sisby의 뱃지들이에요!
 
