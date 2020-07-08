@@ -63,6 +63,8 @@ async def on_message(message):
 > 핑퐁빌더로 말합니다.
 {prefix} 초대
 > 봇 초대링크를 알려줍니다.
+{prefix} 핑
+> {client.user.name}의 핑입니다!
 {prefix} 청소 <메세지를 청소할 숫자>
 > {client.user.name}으로 해당 채널의 채팅을 <메세지를 청소할 숫자>만큼 지웁니다. (메세지 관리하기 권한 필요)
 {prefix} 킥 <@유저 맨션>
@@ -334,6 +336,23 @@ async def on_message(message):
                     await message.delete()
                 except:
                     pass
+
+        if message.content.startswith(f"{prefix} 건의"):
+            msg = await message.channel.send(f"**🏓 Pinging...**")
+            ping = round(client.latency * 1000)
+            if ping >= 0 and ping <= 100:
+                pings = "매우좋음"
+            elif ping >= 101 and ping <= 200:
+                pings = "좋음" 
+            elif ping >= 201 and ping <= 500:
+                pings = "보통"
+            elif ping >= 501 and ping <= 1000:
+                pings = "나쁨"
+            elif ping >= 1000:
+                pings = "매우나쁨"
+            embed = discord.Embed(colour=discord.Colour.red, title=f"{client.user.name}의 핑", description=f"핑은 {ping}ms입니다!\n상태는 {pings}이네요!")
+            embed.set_footer(text=message.author, icon_url=message.author.avatar_url)
+            await msg.edit(content="🏓 Pong!", embed=embed)
 
         if message.content.startswith(f"{prefix} 공지"):
             Data = await Bot.getBot(client.user.id)
