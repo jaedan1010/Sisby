@@ -337,7 +337,7 @@ async def on_message(message):
                 except:
                     pass
 
-        if message.content.startswith(f"{prefix} 핑"):
+        if message.content == f"{prefix} 핑":
             msg = await message.channel.send(f"**🏓 Pinging...**")
             ping = round(client.latency * 1000)
             if ping >= 0 and ping <= 100:
