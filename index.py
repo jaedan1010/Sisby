@@ -23,25 +23,10 @@ pingpongurl = os.getenv("PINGPONG_URL")
 pingpongauth = os.getenv("PINGPONG_AUTH")
 
 @client.event
-async def bg_change_playing():
-    while True:
-        await client.change_presence(status=discord.Status.online, activity=discord.Game(name=f"{prefix} 도움말 | 버전 {ver}"))
-        await asyncio.sleep(10)
-        await client.change_presence(status=discord.Status.online, activity=discord.Game(name=f"{prefix} 도움말 | {len(client.guilds)}개의 서버"))
-        await asyncio.sleep(10)
-        await client.change_presence(status=discord.Status.online, activity=discord.Game(name=f"{prefix} 도움말 | {len(client.users)}명의 유저"))
-        await asyncio.sleep(10)
-        Data = await Bot.getBot(client.user.id)
-        await client.change_presence(status=discord.Status.online, activity=discord.Game(name=f"{prefix} 도움말 | {Data.votes}개의 하트"))
-        await asyncio.sleep(10)
-    client.loop.create_task(bg_change_playing())
-
-@client.event
 async def on_ready():
     print(client.user.name)
     print("ready")
     await client.get_channel(int(ready)).send(embed = discord.Embed(title="봇이 준비되었습니다.").set_footer(text=client.user, icon_url=client.user.avatar_url_as(format=None, static_format="png", size=1024)))
-    client.loop.create_task(bg_change_playing())
 
 @client.event
 async def on_guild_join(guild):
@@ -497,5 +482,19 @@ evaling...
     except Exception as ex:
         await client.get_channel(int(bug)).send(embed = discord.Embed(title="버그가 발생하였습니다.", description=ex).set_footer(text=message.author, icon_url=message.author.avatar_url))
         await message.channel.send(f"오류가 발생하였습니다.\n오류 내용 : {ex}")
+
+async def my_background_task():
+    await client.wait_until_ready()
+    while not client.is_closed():
+        await client.change_presence(status=discord.Status.online, activity=discord.Game(name=f"{prefix} 도움말 | 버전 {ver}"))
+        await asyncio.sleep(10)
+        await client.change_presence(status=discord.Status.online, activity=discord.Game(name=f"{prefix} 도움말 | {len(client.guilds)}개의 서버"))
+        await asyncio.sleep(10)
+        await client.change_presence(status=discord.Status.online, activity=discord.Game(name=f"{prefix} 도움말 | {len(client.users)}명의 유저"))
+        await asyncio.sleep(10)
+        Data = await Bot.getBot(client.user.id)
+        await client.change_presence(status=discord.Status.online, activity=discord.Game(name=f"{prefix} 도움말 | {Data.votes}개의 Koreanbots 하트"))
+        await asyncio.sleep(10)
+client.loop.create_task(my_background_task())
 
 client.run(token)
