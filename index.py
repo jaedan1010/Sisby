@@ -350,9 +350,9 @@ async def on_message(message):
                 pings = "나쁨"
             elif ping >= 1000:
                 pings = "매우나쁨"
-            embed = discord.Embed(colour=discord.Colour.red, title=f"{client.user.name}의 핑", description=f"핑은 {ping}ms입니다!\n상태는 {pings}이네요!")
+            embed = discord.Embed(colour=discord.Colour.red(), title=f"{client.user.name}의 핑", description=f"핑은 {ping}ms입니다!\n상태는 {pings}이네요!")
             embed.set_footer(text=message.author, icon_url=message.author.avatar_url)
-            await msg.edit(content="🏓 Pong!", embed=embed)
+            await msg.edit(content="**🏓 Pong!**", embed=embed)
 
         if message.content.startswith(f"{prefix} 공지"):
             Data = await Bot.getBot(client.user.id)
