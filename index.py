@@ -138,7 +138,7 @@ async def on_message(message):
                         if user.id in owner:
                             badge += "<:dev:715085684905345064> Sisby Developer\n"
                         if user.id in heimteam:
-                            badge += "<:heimteam:730330765212254251> Team Heim"
+                            badge += "<:heimteam:730330765212254251> Team Heim\n"
                         if user.id in bughunter:
                             badge += "<:bughunter:730322955212423269> Sisby Bug Hunter\n"
                         else:
@@ -199,7 +199,7 @@ async def on_message(message):
                         if user.id in owner:
                             badge += "<:dev:715085684905345064> Sisby Developer\n"
                         if user.id in heimteam:
-                            badge += "<:heimteam:730330765212254251> Team Heim"
+                            badge += "<:heimteam:730330765212254251> Team Heim\n"
                         if user.id in bughunter:
                             badge += "<:bughunter:730322955212423269> Sisby Bug Hunter\n"
                         else:
