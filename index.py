@@ -327,7 +327,7 @@ async def on_message(message):
                 await message.channel.send("건의사항을 입력해주세요.")
             else:
                 msg = message.content[7:]
-                await client.get_channel(int(건의)).send(embed = discord.Embed(title="건의가 들어왔어요!", description=msg).set_footer(text=message.author, icon_url=message.author.avatar_url))
+                await client.get_channel(int(건의)).send(embed = discord.Embed(title="건의가 들어왔어요!", description=msg).set_footer(text=f"{message.author}의 건의, {message.author.id}", icon_url=message.author.avatar_url))
                 await message.channel.send(f"{message.author.mention}님! 건의가 완료되었습니다!")
                 try:
                     await message.delete()
