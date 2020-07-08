@@ -4,6 +4,7 @@ import datetime
 import koreanbots
 import datetime
 import os
+import random
 import math
 import json
 import aiohttp
@@ -13,7 +14,7 @@ client = discord.Client()
 token = os.getenv("TOKEN")
 ver = "Beta"
 prefix = "시스비"
-owner = 726350177601978438
+owner = [726350177601978438]
 Bot = koreanbots.Client(client, os.getenv("KOREANBOTS_TOKEN"))
 ready = 727361177604325396
 bug = 727361427173670923
@@ -46,14 +47,13 @@ async def on_message(message):
         if not message.content.startswith(f"{prefix}"): return
         if message.author.bot: return
         if message.content == f"{prefix} 도움말" or message.content == f"{prefix} help":
-            await message.channel.send(f"""
-안녕하세요! {client.user.name}이에요!
-저는 많은 명령어가 있어요!
-접두사는 {prefix}이고, 현재 {ver} 버전입니다!
-**<> - 필수, [] - 선택**
+            a = random.choice([discord.Colour.red(), discord.Colour.orange(), discord.Colour.green(), discord.Colour.blue(), discord.Colour.purple()])
+            await message.channel.send(embed=discord.Embed(colour=a, title=f"{client.user.name} 도움말", description=f"""
+접두사 : {prefix}, 버전 : {ver}
+<> = 필수, [] = 선택, () = 필요한 권한
 
-==<명령어들>==
-{prefix} 정보 / {prefix} 정보 [@유저 맨션]
+**"커맨드"**
+{prefix} 정보 [@유저 맨션]
 > 유저의 정보를 조회합니다.
 {prefix} 서버정보
 > 서버정보를 조회합니다.
@@ -65,24 +65,21 @@ async def on_message(message):
 > 봇 초대링크를 알려줍니다.
 {prefix} 핑
 > {client.user.name}의 핑입니다!
-{prefix} 청소 <메세지를 청소할 숫자>
-> {client.user.name}으로 해당 채널의 채팅을 <메세지를 청소할 숫자>만큼 지웁니다. (메세지 관리하기 권한 필요)
-{prefix} 킥 <@유저 맨션>
-> {client.user.name}으로 해당 유저를 추방합니다. (멤버 추방하기 권한 필요)
-{prefix} 밴 <@유저 맨션>
-> {client.user.name}으로 해당 유저를 차단합니다. (멤버 차단하기 권한 필요)
-{prefix} 언밴 <@유저 맨션>
-> {client.user.name}으로 해당 유저를 언밴합니다. (멤버 차단하기 권한 필요)
-{prefix} 공지 <제목>&&<내용>
-> {client.user.name}으로 공지를 발신합니다. (Bot Developer 권한 필요)
 
-==<안내>==
-{client.user.name}은 아래의 로그를 수집합니다.
-> 봇 준비 로그
-> 봇 서버 변동 (서버 수 변동, 서버 수만 수집.)
-> 버그로그
-> 건의로그
-""")
+**"일정 권한이 필요한 커맨드"**
+{prefix} 청소 <메세지를 청소할 숫자>
+> {client.user.name}으로 해당 채널의 채팅을 <메세지를 청소할 숫자>만큼 지웁니다. (메세지 관리하기 권한)
+{prefix} 킥 <@유저 맨션>
+> {client.user.name}으로 해당 유저를 추방합니다. (멤버 추방하기 권한)
+{prefix} 밴 <@유저 맨션>
+> {client.user.name}으로 해당 유저를 차단합니다. (멤버 차단하기 권한)
+{prefix} 언밴 <@유저 맨션>
+> {client.user.name}으로 해당 유저를 언밴합니다. (멤버 차단하기 권한)
+{prefix} 공지 <제목>&&<내용>
+> {client.user.name}으로 공지를 발신합니다. (Bot Developer 권한)
+{prefix} 건답 <내용>
+> {client.user.name}으로 건의한 내용을 답변합니다! (Bot Developer 권한)
+"""))
         if message.content == f"{prefix}" or message.content == f"{prefix} hellothisisverification":
             await message.channel.send(f"안녕하세요! 저는 {client.user.name}이에요! 시스비는 현재 {ver} 버전이고, 주인은 {client.get_user(726350177601978438)}(726350177601978438)입니다!\n저는 인공지능이에요! 접두사는 `{prefix}`입니다!")
 
@@ -356,7 +353,7 @@ async def on_message(message):
 
         if message.content.startswith(f"{prefix} 공지"):
             Data = await Bot.getBot(client.user.id)
-            if message.author.id == owner:
+            if message.author.id in owner:
                 msg = message.content[7:]
                 oksv = 0
                 embed = discord.Embed(
@@ -366,7 +363,7 @@ async def on_message(message):
                     timestamp = message.created_at
                 ).set_footer(icon_url=message.author.avatar_url, text=f'{message.author} - 인증됨') .set_thumbnail(url=client.user.avatar_url_as(format=None, static_format="png", size=1024))
                 for i in client.guilds:
-                    arr=  [0]
+                    arr = [0]
                     alla = False
                     flag = True
                     z = 0
@@ -443,7 +440,7 @@ async def on_message(message):
                             await message.channel.send(reply['text'])
 
         if message.content.startswith(f"{prefix} 컴파일"):
-            if message.author.id == owner:
+            if message.author.id in owner:
                 a=message.content[8:]
                 try:
                     msg=await message.channel.send(embed=discord.Embed(color=0x2F3136, title="컴파일하는중...",description=f"""📥INPUT📥
@@ -495,6 +492,18 @@ evaling...
 ```py
 {aa}
 ```"""))
+            else:
+                await message.channel.send('이 명령어를 쓰려면 최소 Bot Developer 권한이 필요합니다.')
+
+        if message.content.startswith(f"{prefix} 건답"):
+            if message.author.id in owner:
+                msg = message.content[7:]
+                user = msg.split('&&')[0]
+                description = msg.split('&&')[1]
+                try:
+                    await client.get_user(int(user)).send(f"{description}\n\n발신인 : {message.author}")
+                except Exception as ex:
+                    await message.channel.send(f"오류가 발생했어요! 아마도 DM을 못보내서 오류난거같은데 확인해보세요!\n오류 : {ex}")
             else:
                 await message.channel.send('이 명령어를 쓰려면 최소 Bot Developer 권한이 필요합니다.')
 
