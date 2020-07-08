@@ -502,6 +502,17 @@ async def on_message(message):
         if message.content.startswith(f"{prefix} 컴파일"):
             if message.author.id in owner:
                 a=message.content[8:]
+                if "token" in a or "KOREANBOTS_TOKEN" in a or "PINGPONG_URL" in a or "PINGPONG_AUTH" in a:
+                    await message.channel.send(embed=discord.Embed(color=0x2F3136, title="컴파일 결과",description=f"""📥INPUT📥
+            
+```py
+{a}          
+```
+📤OUTPUT📤
+```py
+결과를 불러올 수 없습니다.
+```"""))
+                    return
                 try:
                     msg=await message.channel.send(embed=discord.Embed(color=0x2F3136, title="컴파일하는중...",description=f"""📥INPUT📥
 ```py
