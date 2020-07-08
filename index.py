@@ -15,7 +15,11 @@ token = os.getenv("TOKEN")
 ver = "Beta"
 prefix = "시스비"
 owner = [726350177601978438]
+# 삼성해피트리
+heimteam = [726350177601978438, 700561761690189875, 723670306102837258, 447934468603379724, 524515155254444032, 647736678815105037]
+# 삼성해피트리, OwO(Discord-api), 수현, 준홍, 배인블, mswgen
 bughunter = [726350177601978438, 534214957110394881]
+# 삼성해피트리, 제토
 Bot = koreanbots.Client(client, os.getenv("KOREANBOTS_TOKEN"))
 ready = 727361177604325396
 bug = 727361427173670923
@@ -96,6 +100,8 @@ async def on_message(message):
                 badge = ""
                 if message.author.id in owner:
                     badge += "<:dev:715085684905345064> Sisby Developer\n"
+                if message.author.id in heimteam:
+                    badge += "<:heimteam:730330765212254251> Team Heim"
                 if message.author.id in bughunter:
                     badge += "<:bughunter:730322955212423269> Sisby Bug Hunter\n"
                 else:
@@ -131,6 +137,8 @@ async def on_message(message):
                         badge = ""
                         if user.id in owner:
                             badge += "<:dev:715085684905345064> Sisby Developer\n"
+                        if user.id in heimteam:
+                            badge += "<:heimteam:730330765212254251> Team Heim"
                         if user.id in bughunter:
                             badge += "<:bughunter:730322955212423269> Sisby Bug Hunter\n"
                         else:
@@ -190,6 +198,8 @@ async def on_message(message):
                         badge = ""
                         if user.id in owner:
                             badge += "<:dev:715085684905345064> Sisby Developer\n"
+                        if user.id in heimteam:
+                            badge += "<:heimteam:730330765212254251> Team Heim"
                         if user.id in bughunter:
                             badge += "<:bughunter:730322955212423269> Sisby Bug Hunter\n"
                         else:
