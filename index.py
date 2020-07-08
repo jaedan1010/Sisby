@@ -569,6 +569,7 @@ evaling...
                 await message.channel.send('이 명령어를 쓰려면 최소 Bot Developer 권한이 필요합니다.')
 
         if message.content == f"{prefix} 뱃지" or message.content == f"{prefix} 배지":
+            a = random.choice([discord.Colour.red(), discord.Colour.orange(), discord.Colour.green(), discord.Colour.blue(), discord.Colour.purple()])
             await message.channel.send(embed=discord.Embed(colour=a, title=f"{client.user.name} 뱃지", description=f"""
 현재 존재하는 Sisby의 뱃지들이에요!
 
