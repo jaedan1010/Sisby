@@ -129,9 +129,9 @@ async def on_message(message):
                             discord.Status.do_not_disturb: "<:status_dnd:728527943684456459> 방해금지"}
                         user_status = status_dict[user.status]
                         badge = ""
-                        if message.author.id in owner:
+                        if user.id in owner:
                             badge += "<:dev:715085684905345064> Sisby Developer\n"
-                        if message.author.id in bughunter:
+                        if user.id in bughunter:
                             badge += "<:bughunter:730322955212423269> Sisby Bug Hunter\n"
                         else:
                             badge += "**뱃지가 없습니다!**"
@@ -188,9 +188,9 @@ async def on_message(message):
                             discord.Status.do_not_disturb: "<:status_dnd:728527943684456459> 방해금지"}
                         user_status = status_dict[user.status]
                         badge = ""
-                        if message.author.id in owner:
+                        if user.id in owner:
                             badge += "<:dev:715085684905345064> Sisby Developer\n"
-                        if message.author.id in bughunter:
+                        if user.id in bughunter:
                             badge += "<:bughunter:730322955212423269> Sisby Bug Hunter\n"
                         else:
                             badge += "**뱃지가 없습니다!**"
