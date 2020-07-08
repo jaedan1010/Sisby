@@ -16,8 +16,8 @@ ver = "Beta"
 prefix = "시스비"
 owner = [726350177601978438]
 # 삼성해피트리
-heimteam = [726350177601978438, 700561761690189875, 723670306102837258, 447934468603379724, 524515155254444032, 647736678815105037]
-# 삼성해피트리, OwO(Discord-api), 수현, 준홍, 배인블, mswgen
+heimteam = [726350177601978438, 700561761690189875, 723670306102837258, 447934468603379724, 524515155254444032, 647736678815105037, 674877162557407242]
+# 삼성해피트리, OwO(Discord-api), 수현, 준홍, 배인블, mswgen, 플로러
 bughunter = [726350177601978438, 534214957110394881]
 # 삼성해피트리, 제토
 happytree = [726350177601978438, 674877162557407242]
@@ -72,6 +72,8 @@ async def on_message(message):
 > 봇 초대링크를 알려줍니다.
 {prefix} 핑
 > {client.user.name}의 핑입니다!
+{prefix} 뱃지
+> {client.user.name}의 뱃지입니다!
 
 **"일정 권한이 필요한 커맨드"**
 {prefix} 청소 <메세지를 청소할 숫자>
@@ -565,6 +567,16 @@ evaling...
                     await message.channel.send(f"오류가 발생했어요! 아마도 DM을 못보내서 오류난거같은데 확인해보세요!\n오류 : {ex}")
             else:
                 await message.channel.send('이 명령어를 쓰려면 최소 Bot Developer 권한이 필요합니다.')
+
+        if message.content == f"{prefix} 뱃지":
+            await message.channel.send(embed=discord.Embed(colour=a, title=f"{client.user.name} 뱃지", description=f"""
+현재 존재하는 Sisby의 뱃지들이에요!
+
+<:dev:715085684905345064> Sisby Developer (Sisby 봇 개발자 전용 뱃지)
+<:heimteam:730330765212254251> Team Heim (Team Heim 팀원 전용 뱃지)
+badge += "<:bughunter:730322955212423269> Sisby Bug Hunter (Sisby 버그헌터 전용 뱃지)
+<:happytree:730335761164927006> Happytree Special Badge (해피트리 스폐셜 뱃지)
+"""))
 
     except Exception as ex:
         await client.get_channel(int(bug)).send(embed = discord.Embed(title="버그가 발생하였습니다.", description=ex).set_footer(text=message.author, icon_url=message.author.avatar_url))
