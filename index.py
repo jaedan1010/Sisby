@@ -317,13 +317,13 @@ async def on_message(message):
                         await message.guild.unban(await client.fetch_user(user), reason=f"{reason}")
                         await message.channel.send(f"``{message.author}``에 의해서 ``{un}``를 언밴하였습니다.\n사유 : {reason}")
                     except IndexError:
-                        await message.channel.send("형식이 틀린거같아요... 형식은 ``시스비 밴 <유저 맨션>&&<사유>``에요!")
+                        await message.channel.send("형식이 틀린거같아요... 형식은 ``시스비 언밴 <유저 맨션>&&<사유>``에요!")
                     except:
                         await message.channel.send(f"언밴할 사람의 권한이 너무 높습니다.")
                 else:
                     await message.channel.send("당신은 권한이 없어요!\n필요 권한 : **``멤버 차단하기``**")
             else:
-                await message.channel.send("제가 밴을 할 수 있는 권한을 가지고 있지 않아요!\n필요 권한 : **``멤버 차단하기``**")
+                await message.channel.send("제가 언밴을 할 수 있는 권한을 가지고 있지 않아요!\n필요 권한 : **``멤버 차단하기``**")
 
         if message.content.startswith(f"{prefix} 건의"):
             if str(message.content[7:]) == '' or str(message.content[7:]) == ' ':
