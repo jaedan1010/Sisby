@@ -422,6 +422,8 @@ async def on_message(message):
         if message.content.startswith(f"{prefix} 공지"):
             Data = await Bot.getBot(client.user.id)
             if message.author.id in owner:
+                if str(message.content[7:]) == '' or str(message.content[7:]) == ' ':
+                    await message.channel.send("메세지를 써라.")
                 msg = message.content[7:]
                 oksv = 0
                 embed = discord.Embed(
