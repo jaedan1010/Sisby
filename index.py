@@ -301,7 +301,7 @@ async def on_message(message):
                 a = message.guild.icon_url_as(format="png", size=2048)
             embed.set_thumbnail(url=a)
             try:
-                embed.set_image(url=message.guild.banner_url_as(format='png', size=2048))
+                embed.set_image(url=message.guild.banner_url_as(format='png'))
             except:
                 pass
             embed.set_footer(text=f"{message.author}", icon_url=message.author.avatar_url)
@@ -595,10 +595,10 @@ evaling...
             await message.channel.send(embed=discord.Embed(colour=a, title=f"{client.user.name} 뱃지", description=f"""
 현재 존재하는 Sisby의 뱃지들이에요!
 
-<:dev:715085684905345064> Sisby Developer (Sisby 봇 개발자 전용 뱃지)
-<:heimteam:730330765212254251> Team Heim (Team Heim 팀원 전용 뱃지)
-<:bughunter:730322955212423269> Sisby Bug Hunter (Sisby 버그헌터 전용 뱃지)
-<:happytree:730335761164927006> Happytree Special Badge (해피트리 스폐셜 뱃지)
+<:dev:715085684905345064> Sisby Developer (Sisby 봇 개발자 전용 뱃지) - 현재 {len(owner)}명이 가지고 있어요!
+<:heimteam:730330765212254251> Team Heim (Team Heim 팀원 전용 뱃지) - 현재 {len(heimteam)}명이 가지고 있어요!
+<:bughunter:730322955212423269> Sisby Bug Hunter (Sisby 버그헌터 전용 뱃지) - 현재 {len(bughunter)}명이 가지고 있어요!
+<:happytree:730335761164927006> Happytree Special Badge (해피트리 스폐셜 뱃지) - 현재 {len(happytree)}명이 가지고 있어요!
 """))
 
     except Exception as ex:
