@@ -277,7 +277,7 @@ async def on_message(message):
             embed = discord.Embed(colour=0xff00, title=f"서버정보 - {message.guild.name}", timestamp=message.created_at)
             embed.add_field(name="서버 이름", value=message.guild.name, inline=False)
             embed.add_field(name="서버 ID", value=message.guild.id, inline=False)
-            embed.add_field(name="서버 주인", value=f"{message.guild.owner}\n └ <@{message.guild.owner.id}>", inline=False)
+            embed.add_field(name="서버 주인", value=f"{message.guild.owner}", inline=False)
             embed.add_field(name="서버 주인 ID", value=message.guild.owner.id, inline=False)
             embed.add_field(name="서버 국가", value=message.guild.region, inline=False)
             embed.add_field(name="서버 제작일", value = message.guild.created_at.strftime("20%y년 %m월 %d일"), inline=False)
@@ -295,7 +295,15 @@ async def on_message(message):
                 embed.add_field(name=f'서버 시스템 채널', value=f'❌ | 시스템 채널이 존재하지 않습니다.', inline=False)
             embed.add_field(name=f'서버 부스트 레벨', value=f'Level {message.guild.premium_tier}', inline=False)
             embed.add_field(name=f'서버 부스트 개수', value=f'Boost {message.guild.premium_subscription_count}', inline=False)
-            embed.set_thumbnail(url=message.guild.icon_url)
+            if message.guild.is_icon_animated() is True:
+                a = message.guild.icon_url_as(format="gif", size=2048)
+            elif message.guild.is_icon_animated() is False:
+                a = message.guild.icon_url_as(format="png", size=2048)
+            embed.set_thumbnail(url=a)
+            try:
+                embed.set_image(url=message.guild.banner_url_as(format='png', size=2048))
+            except:
+                pass
             embed.set_footer(text=f"{message.author}", icon_url=message.author.avatar_url)
             await message.channel.send(embed=embed)
 
