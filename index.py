@@ -14,7 +14,7 @@ client = discord.Client()
 token = os.getenv("TOKEN")
 ver = "Beta"
 prefix = "시스비"
-owner = [726350177601978438, 730338671017852948, 700561761690189875]
+owner = [726350177601978438, 729260555101012048, 700561761690189875]
 # 삼성해피트리, 삼성해피트리 부계정, OwO(Discord-api)
 heimteam = [726350177601978438, 700561761690189875, 723670306102837258, 447934468603379724, 524515155254444032, 647736678815105037, 674877162557407242]
 # 삼성해피트리, OwO(Discord-api), 수현, 준홍, 배인블, mswgen, 플로러
@@ -249,10 +249,10 @@ async def on_message(message):
                         await message.channel.send(embed=embed)
                     else:
                         date = datetime.datetime.utcfromtimestamp(((int(user.id) >> 22) + 1420070400000) / 1000)
-                        status_dict: dict = {discord.Status.online: '<:status_online:726399733026914335> 온라인',
-                            discord.Status.offline: '<:status_offline:726399732930576434> 오프라인',
-                            discord.Status.idle: "<:status_idle:726399733081571348> 자리비움",
-                            discord.Status.do_not_disturb: "<:status_dnd:726399732557283386> 방해금지"}
+                        status_dict: dict = {discord.Status.online: '<:status_online:728527943827062804> 온라인',
+                            discord.Status.offline: '<:status_offline:728527943831126036> 오프라인',
+                            discord.Status.idle: "<:status_idle:728527943806091364> 자리비움",
+                            discord.Status.do_not_disturb: "<:status_dnd:728527943684456459> 방해금지"}
                         user_status = status_dict[user.status]
                         if not len(user.roles) == 1:
                             roles = [role for role in user.roles]
