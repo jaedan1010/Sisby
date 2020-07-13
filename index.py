@@ -428,7 +428,7 @@ async def on_message(message):
                 oksv = 0
                 embed = discord.Embed(
                     title = msg.split('&&')[0],
-                    description = msg.split('&&')[1] + f"\n\n이 채널에 공지가 오기 싫다면 `봇-공지` 채널을 만들어주세요!\n[{client.user.name} SUPPORT](https://discord.gg/HWZBBnR)\n[{client.user.name} 좋아요 누르기](https://koreanbots.dev/bots/726376311710548049) {Data.votes} ❤",
+                    description = msg.split('&&')[1] + f"\n\n이 채널에 공지가 오기 싫다면 `봇-공지` 채널을 만들어주세요!\n[{client.user.name} SUPPORT](https://discord.gg/HWZBBnR)\n[{client.user.name} 좋아요 누르기](https://koreanbots.dev/bots/726376311710548049)\n[서비스 이용약관](https://sisby.ga/tos)\n[개인정보 처리방침](https://sisby.ga/privacy-policy)",
                     colour = discord.Colour.blue(),
                     timestamp = message.created_at
                 ).set_footer(icon_url=message.author.avatar_url, text=f'{message.author} - 인증됨') .set_thumbnail(url=client.user.avatar_url_as(format=None, static_format="png", size=1024))
