@@ -282,6 +282,8 @@ async def on_message(message):
                 embed = discord.Embed(colour=0xff00, title=f"<:boosting2:732546134379331584> {message.guild.name}", timestamp=message.created_at)
             elif message.guild.premium_tier == 3:
                 embed = discord.Embed(colour=0xff00, title=f"<:boosting3:732546133850587208> {message.guild.name}", timestamp=message.created_at)
+            else:
+                embed = discord.Embed(colour=0xff00, title=f"{message.guild.name}", timestamp=message.created_at)
             embed.add_field(name="서버 이름", value=message.guild.name, inline=False)
             embed.add_field(name="서버 ID", value=message.guild.id, inline=False)
             embed.add_field(name="서버 주인", value=f"{message.guild.owner}", inline=False)
