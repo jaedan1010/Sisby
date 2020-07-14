@@ -8,13 +8,11 @@ import random
 import math
 import json
 import aiohttp
-from Dtime import Uptime
 from dotenv import load_dotenv
 load_dotenv(verbose=True)
 client = discord.Client()
-Uptime.uptimeset()
 token = os.getenv("TOKEN")
-ver = "Beta"
+ver = "0.0.1"
 prefix = "시스비"
 owner = [726350177601978438, 700561761690189875]
 # 삼성해피트리, OwO(Discord-api)
@@ -613,13 +611,6 @@ evaling...
 <:bughunter:730322955212423269> Sisby Bug Hunter (Sisby 버그헌터 전용 뱃지) - 현재 {len(bughunter)}명이 가지고 있어요!
 <:happytree:730335761164927006> Happytree Special Badge (해피트리 스폐셜 뱃지) - 현재 {len(happytree)}명이 가지고 있어요!
 """))
-
-            if message.content == f'{prefix} 업타임':
-                uptime = str(Uptime.uptime()).split(":")
-                hours = uptime[0]
-                minitues = uptime[1]
-                seconds = uptime[2].split(".")[0]
-                await message.channel.send(f"{hours}시간 {minitues}분 {seconds}초동안 온라인이었다굿!")
 
     except Exception as ex:
         await client.get_channel(int(bug)).send(embed = discord.Embed(title="버그가 발생하였습니다.", description=ex).set_footer(text=message.author, icon_url=message.author.avatar_url))
