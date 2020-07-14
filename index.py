@@ -274,7 +274,14 @@ async def on_message(message):
                         await message.channel.send(embed=embed)
 
         if message.content == f"{prefix} 서버정보":
-            embed = discord.Embed(colour=0xff00, title=f"서버정보 - {message.guild.name}", timestamp=message.created_at)
+            if message.guild.premium_subscription_count == 1:
+                embed = discord.Embed(colour=0xff00, title=f"<:boosting0:732546134018621460> {message.guild.name}", timestamp=message.created_at)
+            elif message.guild.premium_tier == 1:
+                embed = discord.Embed(colour=0xff00, title=f"<:boosting1:732546134542909500> {message.guild.name}", timestamp=message.created_at)
+            elif message.guild.premium_tier == 2:
+                embed = discord.Embed(colour=0xff00, title=f"<:boosting2:732546134379331584> {message.guild.name}", timestamp=message.created_at)
+            elif message.guild.premium_tier == 3:
+                embed = discord.Embed(colour=0xff00, title=f"<:boosting3:732546133850587208> {message.guild.name}", timestamp=message.created_at)
             embed.add_field(name="서버 이름", value=message.guild.name, inline=False)
             embed.add_field(name="서버 ID", value=message.guild.id, inline=False)
             embed.add_field(name="서버 주인", value=f"{message.guild.owner}", inline=False)
