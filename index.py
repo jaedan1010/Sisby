@@ -535,10 +535,10 @@ async def on_message(message):
                         if 'text' in reply:
                             await message.channel.send(reply['text'])
 
-        if message.content.startswith(f"{prefix}컴파일"):
+        if message.content.startswith(f"{prefix} 컴파일"):
             if message.author.id in owner:
                 try:
-                    prefix_count=len(prefix)+4
+                    prefix_count=len(prefix)+5
                     cmd=message.content[prefix_count:]
                     fn_name = "_eval_expr"
                     cmd = cmd.strip("` ")
