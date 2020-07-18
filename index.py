@@ -8,6 +8,8 @@ import random
 import math
 import json
 import aiohttp
+import requests
+import ast
 from dotenv import load_dotenv
 load_dotenv(verbose=True)
 client = discord.Client()
@@ -35,6 +37,21 @@ async def on_ready():
     print(client.user.name)
     print("ready")
     await client.get_channel(int(ready)).send(embed = discord.Embed(title="봇이 준비되었습니다.").set_footer(text=client.user, icon_url=client.user.avatar_url_as(format=None, static_format="png", size=1024)))
+
+def insert_returns(body):
+    # insert return stmt if the last expression is a expression statement
+    if isinstance(body[-1], ast.Expr):
+        body[-1] = ast.Return(body[-1].value)
+        ast.fix_missing_locations(body[-1])
+
+    # for if statements, we insert returns into the body and the orelse
+    if isinstance(body[-1], ast.If):
+        insert_returns(body[-1].body)
+        insert_returns(body[-1].orelse)
+
+    # for with blocks, again we insert returns into the body
+    if isinstance(body[-1], ast.With):
+        insert_returns(body[-1].body)
 
 @client.event
 async def on_guild_join(guild):
@@ -518,73 +535,36 @@ async def on_message(message):
                         if 'text' in reply:
                             await message.channel.send(reply['text'])
 
-        if message.content.startswith(f"{prefix} 컴파일"):
+        if message.content.startswith(f"{prefix}컴파일"):
             if message.author.id in owner:
-                a=message.content[8:]
-                if "token" in a or "KOREANBOTS_TOKEN" in a or "PINGPONG_URL" in a or "PINGPONG_AUTH" in a:
-                    await message.channel.send(embed=discord.Embed(color=0x2F3136, title="컴파일 결과",description=f"""
-📥INPUT📥     
-```py
-{a}
-```
-📤OUTPUT📤
-```py
-결과를 불러올 수 없습니다.
-```"""))
-                    return
                 try:
-                    msg=await message.channel.send(embed=discord.Embed(color=0x2F3136, title="컴파일하는중...",description=f"""
-📥INPUT📥
-```py
-{a}
-```
-📤OUTPUT📤
-```py
-evaling...
-```"""))
-                    aa=await eval(a)
+                    prefix_count=len(prefix)+4
+                    cmd=message.content[prefix_count:]
+                    fn_name = "_eval_expr"
+                    cmd = cmd.strip("` ")
+                    # add a layer of indentation
+                    cmd = "\n".join(f"    {i}" for i in cmd.splitlines())
+                    # wrap in async def body
+                    body = f"async def {fn_name}():\n{cmd}"
+                    parsed = ast.parse(body)
+                    body = parsed.body[0].body
+                    insert_returns(body)
+                    env = {
+                        'client': client,
+                        'discord': discord,
+                        'message': message,
+                        '__import__': __import__
+                    }
+                    exec(compile(parsed, filename="<ast>", mode="exec"), env)
+                    result = (await eval(f"{fn_name}()", env))
+                    embed=discord.Embed(title="EVAL", colour=discord.Colour.green())
+                    embed.add_field(name="Input (들어가는 내용)", value=f"{cmd}",inline=False)
+                    embed.add_field(name="Output (나오는 내용)", value=f"{result}",inline=False)
+                    embed.add_field(name="Type (타입)",value=f"{type(result)}",inline=False)
+                    embed.add_field(name="Latency (지연시간)",value=str((datetime.datetime.now()-message.created_at)*1000).split(":")[2],inline=False)
+                    await message.channel.send(embed=embed)
                 except Exception as e:
-                    await msg.edit(embed=discord.Embed(color=0x2F3136, title="컴파일 결과",description=f"""
-📥INPUT📥    
-```py
-{a}
-```
-📤OUTPUT📤
-```py
-{e}
-```"""))
-                    try:
-                        aa = eval(a)
-                    except Exception as e:
-                        await msg.edit(embed=discord.Embed(color=0x2F3136, title="컴파일 결과",description=f"""
-📥INPUT📥
-```py
-{a}
-```
-📤OUTPUT📤
-```py
-{e}
-```"""))
-                    else:
-                        await msg.edit(embed=discord.Embed(color=0x2F3136, title=f"컴파일 결과",description=f"""
-📥INPUT📥
-```py
-{a}
-```
-📤OUTPUT📤
-```py
-{aa}
-```""")) 
-                else:
-                    await msg.edit(embed=discord.Embed(color=0x2F3136, title="컴파일 결과",description=f"""
-📥INPUT📥
-```py
-{a}
-```
-📤OUTPUT📤
-```py
-{aa}
-```"""))
+                    await message.channel.send(e)
             else:
                 await message.channel.send('이 명령어를 쓰려면 최소 Bot Developer 권한이 필요합니다.')
 
