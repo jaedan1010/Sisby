@@ -451,14 +451,17 @@ async def on_message(message):
             if message.author.id in owner:
                 if str(message.content[7:]) == '' or str(message.content[7:]) == ' ':
                     await message.channel.send("메세지를 써라.")
-                msg = message.content[7:]
-                oksv = 0
-                embed = discord.Embed(
-                    title = msg.split('&&')[0],
-                    description = msg.split('&&')[1] + f"\n\n이 채널에 공지가 오기 싫다면 `봇-공지` 채널을 만들어주세요!\n[{client.user.name} SUPPORT](https://discord.gg/HWZBBnR)\n[{client.user.name} 좋아요 누르기](https://koreanbots.dev/bots/726376311710548049)\n[서비스 이용약관](https://sisby.ga/tos)\n[개인정보 처리방침](https://sisby.ga/privacy-policy)",
-                    colour = discord.Colour.blue(),
-                    timestamp = message.created_at
-                ).set_footer(icon_url=message.author.avatar_url, text=f'{message.author} - 인증됨') .set_thumbnail(url=client.user.avatar_url_as(format=None, static_format="png", size=1024))
+                try:
+                    msg = message.content[7:]
+                    oksv = 0
+                    embed = discord.Embed(
+                        title = msg.split('&&')[0],
+                        description = msg.split('&&')[1] + f"\n\n이 채널에 공지가 오기 싫다면 `봇-공지` 채널을 만들어주세요!\n[{client.user.name} SUPPORT](https://discord.gg/HWZBBnR)\n[{client.user.name} 좋아요 누르기](https://koreanbots.dev/bots/726376311710548049)\n[서비스 이용약관](https://sisby.ga/tos)\n[개인정보 처리방침](https://sisby.ga/privacy-policy)",
+                        colour = discord.Colour.blue(),
+                        timestamp = message.created_at
+                    ).set_footer(icon_url=message.author.avatar_url, text=f'{message.author} - 인증됨') .set_thumbnail(url=client.user.avatar_url_as(format=None, static_format="png", size=1024))
+                except IndexError:
+                    await message.channel.send(f"형식이 틀렸습니다. ``{prefix} 공지 <제목>&&<내용>``으로 다시 시도해보세요.")
                 m = await message.channel.send("아래와 같이 공지가 발신됩니다!", embed=embed)
                 await m.add_reaction('✅')
                 await m.add_reaction('❎')
