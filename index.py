@@ -448,7 +448,6 @@ async def on_message(message):
             await msg.edit(content="**🏓 Pong!**", embed=embed)
 
         if message.content.startswith(f"{prefix} 공지"):
-            Data = await Bot.getBot(client.user.id)
             if message.author.id in owner:
                 if str(message.content[7:]) == '' or str(message.content[7:]) == ' ':
                     await message.channel.send("메세지를 써라.")
@@ -460,35 +459,46 @@ async def on_message(message):
                     colour = discord.Colour.blue(),
                     timestamp = message.created_at
                 ).set_footer(icon_url=message.author.avatar_url, text=f'{message.author} - 인증됨') .set_thumbnail(url=client.user.avatar_url_as(format=None, static_format="png", size=1024))
-                for i in client.guilds:
-                    arr = [0]
-                    alla = False
-                    flag = True
-                    z = 0
-                    for j in i.channels:
-                        arr.append(j.id)
-                        z+=1
-                        if "시스비-봇-공지" in j.name or"봇-공지" in j.name or "봇_공지" in j.name or "봇공지" in j.name or "bot_announcement" in j.name or "봇ㆍ공지" in j.name:
-                            if str(j.type)=='text':
+                m = await message.channel.send("아래와 같이 공지가 발신됩니다!", embed=embed)
+                await m.add_reaction('✅')
+                await m.add_reaction('❎')
+                try:
+                    reaction, user = await client.wait_for('reaction_add', timeout = 20, check = lambda reaction, user: user == message.author and str(reaction.emoji) in ['✅', '❎'])
+                except asyncio.TimeoutError:
+                    await message.channel.send('시간이 초과되었습니다.')
+                else:
+                    if str(reaction.emoji) == "❎":
+                        await message.channel.send("공지발신 안할께요....")
+                    elif str(reaction.emoji) == "✅":
+                        for i in client.guilds:
+                            arr = [0]
+                            alla = False
+                            flag = True
+                            z = 0
+                            for j in i.channels:
+                                arr.append(j.id)
+                                z+=1
+                                if "시스비-봇-공지" in j.name or"봇-공지" in j.name or "봇_공지" in j.name or "봇공지" in j.name or "bot_announcement" in j.name or "봇ㆍ공지" in j.name:
+                                    if str(j.type)=='text':
+                                        try:
+                                            oksv += 1
+                                            await j.send(embed=embed)
+                                            alla = True
+                                        except:
+                                            pass
+                                        break
+                            if alla==False:
                                 try:
-                                    oksv += 1
-                                    await j.send(embed=embed)
-                                    alla = True
+                                    chan=i.channels[1]
                                 except:
                                     pass
-                                break
-                    if alla==False:
-                        try:
-                            chan=i.channels[1]
-                        except:
-                            pass
-                        if str(chan.type)=='text':
-                            try:
-                                oksv += 1
-                                await chan.send(embed=embed)
-                            except:
-                                pass
-                await message.channel.send(f"**`📢 공지 발신 완료 📢`**\n\n{len(client.guilds)}개의 서버 중 {oksv}개의 서버에 발신 완료, {len(client.guilds) - oksv}개의 서버에 발신 실패")
+                                if str(chan.type)=='text':
+                                    try:
+                                        oksv += 1
+                                        await chan.send(embed=embed)
+                                    except:
+                                        pass
+                        await message.channel.send(f"**`📢 공지 발신 완료 📢`**\n\n{len(client.guilds)}개의 서버 중 {oksv}개의 서버에 발신 완료, {len(client.guilds) - oksv}개의 서버에 발신 실패")
             else:
                 await message.channel.send('이 명령어를 쓰려면 최소 Bot Developer 권한이 필요합니다.')
 
