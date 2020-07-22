@@ -5,7 +5,7 @@
 ---
 [![img](https://api.koreanbots.dev/widget/bots/servers/726376311710548049.svg)](https://koreanbots.dev/bots/726376311710548049) [![img](https://api.koreanbots.dev/widget/bots/votes/726376311710548049.svg)](https://koreanbots.dev/bots/726376311710548049)
 ## Sisby Discord Bot
-![img](https://raw.githubusercontent.com/samsunghappytree123/Sisby/master/sisby%20text%20profile.png)
+![img](https://raw.githubusercontent.com/samsunghappytree123/Sisby/master/image/sisby.png)
 
 Sisby Discord Bot OPEN SOURCE
 
