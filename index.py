@@ -468,7 +468,7 @@ async def on_message(message):
                     for j in i.channels:
                         arr.append(j.id)
                         z+=1
-                        if "봇-공지" in j.name or "봇_공지" in j.name or "봇공지" in j.name or "bot_announcement" in j.name or "봇ㆍ공지" in j.name or "시스비-봇-공지" in j.name:
+                        if "시스비-봇-공지" in j.name or"봇-공지" in j.name or "봇_공지" in j.name or "봇공지" in j.name or "bot_announcement" in j.name or "봇ㆍ공지" in j.name:
                             if str(j.type)=='text':
                                 try:
                                     oksv += 1
