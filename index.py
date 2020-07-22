@@ -470,6 +470,7 @@ async def on_message(message):
                     if str(reaction.emoji) == "❎":
                         await message.channel.send("공지발신 안할께요....")
                     elif str(reaction.emoji) == "✅":
+                        await m.edit(content="발신중입니다...", embed=embed)
                         for i in client.guilds:
                             arr = [0]
                             alla = False
@@ -499,6 +500,7 @@ async def on_message(message):
                                     except:
                                         pass
                         await message.channel.send(f"**`📢 공지 발신 완료 📢`**\n\n{len(client.guilds)}개의 서버 중 {oksv}개의 서버에 발신 완료, {len(client.guilds) - oksv}개의 서버에 발신 실패")
+                        await m.edit(content="발신이 완료되었습니다!", embed=embed)
             else:
                 await message.channel.send('이 명령어를 쓰려면 최소 Bot Developer 권한이 필요합니다.')
 
