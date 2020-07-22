@@ -537,7 +537,7 @@ async def on_message(message):
                         if 'text' in reply:
                             await message.channel.send(reply['text'])
 
-        if message.content == f"{prefix}봇정보":
+        if message.content == f"{prefix} 봇정보":
             embed = discord.Embed(title=f"{client.user.name}", colour=discord.Colour.green())
             embed.add_field(name="🔧 개발자", value=client.get_user(726350177601978438), inline=False)
             embed.add_field(name="🎂 생일", value="2020.06.27", inline=False)
