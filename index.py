@@ -91,6 +91,8 @@ async def on_message(message):
 > {client.user.name}의 핑입니다!
 {prefix} 뱃지
 > {client.user.name}의 뱃지입니다!
+{prefix} 봇정보
+> {client.user.name}의 봇정보를 조회합니다.
 
 **"일정 권한이 필요한 커맨드"**
 {prefix} 청소 <메세지를 청소할 숫자>
@@ -534,6 +536,14 @@ async def on_message(message):
                     for reply in data['response']['replies']:
                         if 'text' in reply:
                             await message.channel.send(reply['text'])
+
+        if message.content == f"{prefix}봇정보":
+            embed = discord.Embed(title=f"{client.user.name}", colour=discord.Colour.green())
+            embed.add_field(name="🔧 개발자", value=client.get_user(726350177601978438), inline=False)
+            embed.add_field(name="🎂 생일", value="2020.06.27", inline=False)
+            embed.add_field(name="<:dpy:735379231042961450> Discord.py 버전", value=discord.__version__, inline=False)
+            embed.add_field(name="👥 사용하는 서버 수 / 유저", value=f"{len(client.guilds)}개의 서버 / {len(client.users)}명의 유저", inline=False)
+            await message.channel.send(embed=embed)
 
         if message.content.startswith(f"{prefix} 컴파일"):
             if message.author.id in owner:
