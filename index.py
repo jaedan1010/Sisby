@@ -145,7 +145,7 @@ async def on_message(message):
                 embed.set_footer(text=f"{message.author}", icon_url=message.author.avatar_url)
                 embed.add_field(name="아이디", value=f"{user.id}", inline=False)
                 embed.add_field(name="닉네임", value=f"{user.display_name}", inline=False)
-                embed.add_field(name="가입일", value=f"{str(date.year)}년 {str(date.month)}월 {str(date.day)}일", inline=False)
+                embed.add_field(name="가입일", value=f"{date.year}년 {date.month}월 {date.day}일 {date.hour + 9}시 {date.minute}분", inline=False)
                 try:
                     embed.add_field(name=f"가진 역할들({len(roles)-1}개)", value=f" ".join([role.mention for role in roles][1:]), inline=False)
                     embed.add_field(name="가장 높은 역할", value=f"{user.top_role.mention}", inline=False)
@@ -189,7 +189,7 @@ async def on_message(message):
                         embed.set_footer(text=f"{message.author}", icon_url=message.author.avatar_url)
                         embed.add_field(name="아이디", value=f"{user.id}", inline=False)
                         embed.add_field(name="닉네임", value=f"{user.display_name}", inline=False)
-                        embed.add_field(name="가입일", value=f"{str(date.year)}년 {str(date.month)}월 {str(date.day)}일", inline=False)
+                        embed.add_field(name="가입일", value=f"{date.year}년 {date.month}월 {date.day}일 {date.hour + 9}시 {date.minute}분", inline=False)
                         try:
                             embed.add_field(name=f"가진 역할들({len(roles)-1}개)", value=f" ".join([role.mention for role in roles][1:]), inline=False)
                             embed.add_field(name="가장 높은 역할", value=f"{user.top_role.mention}", inline=False)
@@ -257,7 +257,7 @@ async def on_message(message):
                         embed.set_footer(text=f"{message.author}", icon_url=message.author.avatar_url)
                         embed.add_field(name="아이디", value=f"{user.id}", inline=False)
                         embed.add_field(name="닉네임", value=f"{user.display_name}", inline=False)
-                        embed.add_field(name="가입일", value=f"{str(date.year)}년 {str(date.month)}월 {str(date.day)}일", inline=False)
+                        embed.add_field(name="가입일", value=f"{date.year}년 {date.month}월 {date.day}일 {date.hour + 9}시 {date.minute}분", inline=False)
                         try:
                             embed.add_field(name=f"가진 역할들({len(roles)-1}개)", value=f" ".join([role.mention for role in roles][1:]), inline=False)
                             embed.add_field(name="가장 높은 역할", value=f"{user.top_role.mention}", inline=False)
@@ -553,9 +553,10 @@ async def on_message(message):
                             await message.channel.send(reply['text'])
 
         if message.content == f"{prefix} 봇정보":
+            date = datetime.datetime.utcfromtimestamp(((int(client.user.id) >> 22) + 1420070400000) / 1000)
             embed = discord.Embed(title=f"{client.user.name}", colour=discord.Colour.green())
             embed.add_field(name="🔧 개발자", value=client.get_user(726350177601978438), inline=False)
-            embed.add_field(name="🎂 생일", value="2020.06.27", inline=False)
+            embed.add_field(name="🎂 생일", value=f"{date.year}년 {date.month}월 {date.day}일", inline=False)
             embed.add_field(name="<:dpy:735379231042961450> Discord.py 버전", value=discord.__version__, inline=False)
             embed.add_field(name="👥 사용하는 서버 수 / 유저", value=f"{len(client.guilds)}개의 서버 / {len(client.users)}명의 유저", inline=False)
             await message.channel.send(embed=embed)
