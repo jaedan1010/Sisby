@@ -1,15 +1,4 @@
-import discord
-import asyncio
-import datetime
-import koreanbots
-import datetime
-import os
-import random
-import math
-import json
-import aiohttp
-import requests
-import ast
+import discord, asyncio, datetime, koreanbots, datetime, os, random, math, json, aiohttp, requests, ast
 from dotenv import load_dotenv
 load_dotenv(verbose=True)
 client = discord.Client()
