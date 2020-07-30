@@ -1,3 +1,6 @@
+"""저기 이거 쓰시는분들 제발 저작권 좀 지켜요... README.md 읽고 하시길 빕니다."""
+
+
 import discord, asyncio, datetime, koreanbots, datetime, os, random, math, json, aiohttp, requests, ast
 from dotenv import load_dotenv
 load_dotenv(verbose=True)
