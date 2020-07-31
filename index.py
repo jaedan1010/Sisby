@@ -7,7 +7,9 @@ ver = "0.0.1"
 prefix = "시스비"
 owner = [726350177601978438, 700561761690189875, 352412492539887616]
 # 삼성해피트리, OwO(Discord-api)
-heimteam = [726350177601978438, 700561761690189875, 723670306102837258, 447934468603379724, 524515155254444032, 647736678815105037, 674877162557407242]
+
+"""Team Heim이 Team Comma로 바뀌었습니다!"""
+teamcomma = [726350177601978438, 700561761690189875, 723670306102837258, 447934468603379724, 524515155254444032, 647736678815105037, 674877162557407242]
 # 삼성해피트리, OwO(Discord-api), 수현, 준홍, 베인블, mswgen, 플로러
 bughunter = [726350177601978438, 534214957110394881]
 # 삼성해피트리, 제토
@@ -114,8 +116,8 @@ async def on_message(message):
                 if message.author.id in owner:
                     badge += "<:dev:715085684905345064> Sisby Developer\n"
                     b = 1
-                if message.author.id in heimteam:
-                    badge += "<:heimteam:730330765212254251> Team Heim\n"
+                if message.author.id in teamcomma:
+                    badge += "<:heimteam:730330765212254251> Team Comma\n"
                     b = 1
                 if message.author.id in bughunter:
                     badge += "<:bughunter:730322955212423269> Sisby Bug Hunter\n"
@@ -158,8 +160,8 @@ async def on_message(message):
                         if user.id in owner:
                             badge += "<:dev:715085684905345064> Sisby Developer\n"
                             b = 1
-                        if user.id in heimteam:
-                            badge += "<:heimteam:730330765212254251> Team Heim\n"
+                        if user.id in teamcomma:
+                            badge += "<:heimteam:730330765212254251> Team Comma\n"
                             b = 1
                         if user.id in bughunter:
                             badge += "<:bughunter:730322955212423269> Sisby Bug Hunter\n"
@@ -226,8 +228,8 @@ async def on_message(message):
                         if user.id in owner:
                             badge += "<:dev:715085684905345064> Sisby Developer\n"
                             b = 1
-                        if user.id in heimteam:
-                            badge += "<:heimteam:730330765212254251> Team Heim\n"
+                        if user.id in teamcomma:
+                            badge += "<:heimteam:730330765212254251> Team Comma\n"
                             b = 1
                         if user.id in bughunter:
                             badge += "<:bughunter:730322955212423269> Sisby Bug Hunter\n"
@@ -602,7 +604,7 @@ async def on_message(message):
 현재 존재하는 Sisby의 뱃지들이에요!
 
 <:dev:715085684905345064> Sisby Developer (Sisby 봇 개발자 전용 뱃지) - 현재 {len(owner)}명이 가지고 있어요!
-<:heimteam:730330765212254251> Team Heim (Team Heim 팀원 전용 뱃지) - 현재 {len(heimteam)}명이 가지고 있어요!
+<:heimteam:730330765212254251> Team Heim (Team Heim 팀원 전용 뱃지) - 현재 {len(teamcomma)}명이 가지고 있어요!
 <:bughunter:730322955212423269> Sisby Bug Hunter (Sisby 버그헌터 전용 뱃지) - 현재 {len(bughunter)}명이 가지고 있어요!
 <:happytree:730335761164927006> Happytree Special Badge (해피트리 스폐셜 뱃지) - 현재 {len(happytree)}명이 가지고 있어요!
 """))
