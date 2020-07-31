@@ -464,12 +464,14 @@ async def on_message(message):
                 try:
                     reaction, user = await client.wait_for('reaction_add', timeout = 20, check = lambda reaction, user: user == message.author and str(reaction.emoji) in ['✅', '❎'])
                 except asyncio.TimeoutError:
-                    await message.channel.send('시간이 초과되었습니다.')
+                    await m.edit(content="시간이 초과되었습니다.", embed=None)
                 else:
+                    await m.remove_reaction('✅')
+                    await m.remove_reaction('❎')
                     if str(reaction.emoji) == "❎":
-                        await message.channel.send("공지발신 안할께요....")
+                        await m.edit(content="공지 발신이 취소되었습니다.", embed=None)
                     elif str(reaction.emoji) == "✅":
-                        await m.edit(content="발신중입니다...", embed=embed)
+                        await m.edit(content="<a:loading:677129501645209601> 발신중입니다...", embed=None)
                         for i in client.guilds:
                             arr = [0]
                             alla = False
@@ -498,8 +500,7 @@ async def on_message(message):
                                         await chan.send(embed=embed)
                                     except:
                                         pass
-                        await message.channel.send(f"**`📢 공지 발신 완료 📢`**\n\n{len(client.guilds)}개의 서버 중 {oksv}개의 서버에 발신 완료, {len(client.guilds) - oksv}개의 서버에 발신 실패")
-                        await m.edit(content="발신이 완료되었습니다!", embed=embed)
+                        await m.edit(content=f"**`📢 공지 발신 완료 📢`**\n\n{len(client.guilds)}개의 서버 중 {oksv}개의 서버에 발신 완료, {len(client.guilds) - oksv}개의 서버에 발신 실패")
             else:
                 await message.channel.send('이 명령어를 쓰려면 최소 Bot Developer 권한이 필요합니다.')
 
@@ -629,11 +630,15 @@ async def on_message(message):
                 reaction, user = await client.wait_for('reaction_add', timeout = 20, check = lambda reaction, user: user == message.author and str(reaction.emoji) in ['✅', '❎'])
             except asyncio.TimeoutError:
                 await message.channel.send('시간이 초과되었습니다.')
+                await m.remove_reaction('✅')
+                await m.remove_reaction('❎')
             else:
+                await m.remove_reaction('✅')
+                await m.remove_reaction('❎')
                 if str(reaction.emoji) == "❎":
-                    await m.edit(content="메일 발신이 취소되었습니다.")
+                    await m.edit(content="메일 발신이 취소되었습니다.", embed=None)
                 elif str(reaction.emoji) == "✅":
-                    await m.edit(f"<a:loading:677129501645209601> 메일 전송중...", embed=embed)
+                    await m.edit(content=f"<a:loading:677129501645209601> 메일 전송중...", embed=None)
                     s = smtplib.SMTP('smtp.gmail.com', 587)
                     s.starttls()
                     s.login('sisbybot@gmail.com', os.getenv("MAIL_PW"))
@@ -641,7 +646,7 @@ async def on_message(message):
                     msg['Subject'] = title
                     s.sendmail("sisbybot@gmail.com", tomail, msg.as_string())
                     s.quit()
-                    await m.edit(content=f"<a:yes:707786803414958100> 메일 전송을 완료하였습니다.")
+                    await m.edit(content=f"<a:yes:707786803414958100> 메일 전송을 완료하였습니다.", embed=None)
 
     except Exception as ex:
         await client.get_channel(int(bug)).send(embed = discord.Embed(title="버그가 발생하였습니다.", description=ex).set_footer(text=message.author, icon_url=message.author.avatar_url))
