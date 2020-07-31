@@ -1,9 +1,9 @@
 """저기 이거 쓰시는분들 제발 저작권 좀 지켜요... README.md 읽고 하시길 빕니다."""
 
 
-import discord, asyncio, datetime, koreanbots, datetime, os, random, math, json, aiohttp, requests, ast
-from dotenv import load_dotenv
-load_dotenv(verbose=True)
+import discord, asyncio, datetime, koreanbots, datetime, os, random, math, json, aiohttp, requests, ast, dotenv, smtplib
+from email.mime.text import MIMEText
+dotenv.load_dotenv(verbose=True)
 client = discord.Client()
 token = os.getenv("TOKEN")
 ver = "0.0.1"
@@ -86,6 +86,8 @@ async def on_message(message):
 {prefix} 뱃지
 > {client.user.name}의 뱃지입니다!
 {prefix} 봇정보
+> {client.user.name}의 봇정보를 조회합니다.
+{prefix} 메일 <보낼 이메일>&&<제목>&&<내용>
 > {client.user.name}의 봇정보를 조회합니다.
 
 **"일정 권한이 필요한 커맨드"**
@@ -611,6 +613,24 @@ async def on_message(message):
 <:bughunter:730322955212423269> Sisby Bug Hunter (Sisby 버그헌터 전용 뱃지) - 현재 {len(bughunter)}명이 가지고 있어요!
 <:happytree:730335761164927006> Happytree Special Badge (해피트리 스폐셜 뱃지) - 현재 {len(happytree)}명이 가지고 있어요!
 """))
+
+        if message.content.startswith(f"{prefix} 메일"):
+            msg = message.content[7:]
+            msg1 = msg.split("&&")
+            tomail = msg1[0]
+            title = msg1[1]
+            description = msg1[2]
+            a = random.choice([discord.Colour.red(), discord.Colour.orange(), discord.Colour.green(), discord.Colour.blue(), discord.Colour.purple()])
+            embed = discord.Embed(colour=a, title=title, description=description)
+            m = await message.channel.send(f"<a:loading:677129501645209601> 메일 전송중...", embed=embed)
+            s = smtplib.SMTP('smtp.gmail.com', 587)
+            s.starttls()
+            s.login('sisbybot@gmail.com', os.getenv("MAIL_PW"))
+            msg = MIMEText(description + f'\n\nDiscord 유저 {message.author}({message.author.id})님의 이메일입니다.')
+            msg['Subject'] = title
+            s.sendmail("sisbybot@gmail.com", tomail, msg.as_string())
+            s.quit()
+            await message.channel.send(f"<a:yes:707786803414958100> 메일 전송을 완료하였습니다.\n발신내역은 아래를 참고하세요.", embed=embed)
 
     except Exception as ex:
         await client.get_channel(int(bug)).send(embed = discord.Embed(title="버그가 발생하였습니다.", description=ex).set_footer(text=message.author, icon_url=message.author.avatar_url))
