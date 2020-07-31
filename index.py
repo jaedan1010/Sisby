@@ -627,7 +627,7 @@ async def on_message(message):
             try:
                 reaction, user = await client.wait_for('reaction_add', timeout = 20, check = lambda reaction, user: user == message.author and str(reaction.emoji) in ['✅', '❎'])
             except asyncio.TimeoutError:
-                await message.channel.send('시간이 초과되었습니다.')
+                await m.edit(content="시간이 초과되었습니다.", embed=None)
             else:
                 if str(reaction.emoji) == "❎":
                     await m.edit(content="메일 발신이 취소되었습니다.", embed=None)
