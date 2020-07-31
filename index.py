@@ -466,8 +466,6 @@ async def on_message(message):
                 except asyncio.TimeoutError:
                     await m.edit(content="시간이 초과되었습니다.", embed=None)
                 else:
-                    await m.remove_reaction('✅')
-                    await m.remove_reaction('❎')
                     if str(reaction.emoji) == "❎":
                         await m.edit(content="공지 발신이 취소되었습니다.", embed=None)
                     elif str(reaction.emoji) == "✅":
@@ -630,11 +628,7 @@ async def on_message(message):
                 reaction, user = await client.wait_for('reaction_add', timeout = 20, check = lambda reaction, user: user == message.author and str(reaction.emoji) in ['✅', '❎'])
             except asyncio.TimeoutError:
                 await message.channel.send('시간이 초과되었습니다.')
-                await m.remove_reaction('✅')
-                await m.remove_reaction('❎')
             else:
-                await m.remove_reaction('✅')
-                await m.remove_reaction('❎')
                 if str(reaction.emoji) == "❎":
                     await m.edit(content="메일 발신이 취소되었습니다.", embed=None)
                 elif str(reaction.emoji) == "✅":
