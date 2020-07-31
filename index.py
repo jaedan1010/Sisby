@@ -621,16 +621,27 @@ async def on_message(message):
             title = msg1[1]
             description = msg1[2]
             a = random.choice([discord.Colour.red(), discord.Colour.orange(), discord.Colour.green(), discord.Colour.blue(), discord.Colour.purple()])
-            embed = discord.Embed(colour=a, title=title, description=description)
-            m = await message.channel.send(f"<a:loading:677129501645209601> 메일 전송중...", embed=embed)
-            s = smtplib.SMTP('smtp.gmail.com', 587)
-            s.starttls()
-            s.login('sisbybot@gmail.com', os.getenv("MAIL_PW"))
-            msg = MIMEText(description + f'\n\nDiscord 유저 {message.author}({message.author.id})님의 이메일입니다.')
-            msg['Subject'] = title
-            s.sendmail("sisbybot@gmail.com", tomail, msg.as_string())
-            s.quit()
-            await m.edit(content=f"<a:yes:707786803414958100> 메일 전송을 완료하였습니다.\n발신내역은 아래를 참고하세요.", embed=embed)
+            embed = discord.Embed(colour=a, title=f"이메일 제목 : {title}", description=f"이메일 내용 : {description}")
+            m = await message.channel.send(f"아래와 같이 메일을 전송할까요?", embed=embed)
+            await m.add_reaction('✅')
+            await m.add_reaction('❎')
+            try:
+                reaction, user = await client.wait_for('reaction_add', timeout = 20, check = lambda reaction, user: user == message.author and str(reaction.emoji) in ['✅', '❎'])
+            except asyncio.TimeoutError:
+                await message.channel.send('시간이 초과되었습니다.')
+            else:
+                if str(reaction.emoji) == "❎":
+                    await m.edit(content="메일 발신이 취소되었습니다.")
+                elif str(reaction.emoji) == "✅":
+                    await m.edit(f"<a:loading:677129501645209601> 메일 전송중...", embed=embed)
+                    s = smtplib.SMTP('smtp.gmail.com', 587)
+                    s.starttls()
+                    s.login('sisbybot@gmail.com', os.getenv("MAIL_PW"))
+                    msg = MIMEText(description + f'\n\nDiscord 유저 {message.author}({message.author.id})님의 이메일입니다.')
+                    msg['Subject'] = title
+                    s.sendmail("sisbybot@gmail.com", tomail, msg.as_string())
+                    s.quit()
+                    await m.edit(content=f"<a:yes:707786803414958100> 메일 전송을 완료하였습니다.")
 
     except Exception as ex:
         await client.get_channel(int(bug)).send(embed = discord.Embed(title="버그가 발생하였습니다.", description=ex).set_footer(text=message.author, icon_url=message.author.avatar_url))
