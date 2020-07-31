@@ -630,7 +630,7 @@ async def on_message(message):
             msg['Subject'] = title
             s.sendmail("sisbybot@gmail.com", tomail, msg.as_string())
             s.quit()
-            await message.channel.send(f"<a:yes:707786803414958100> 메일 전송을 완료하였습니다.\n발신내역은 아래를 참고하세요.", embed=embed)
+            await m.edit(content=f"<a:yes:707786803414958100> 메일 전송을 완료하였습니다.\n발신내역은 아래를 참고하세요.", embed=embed)
 
     except Exception as ex:
         await client.get_channel(int(bug)).send(embed = discord.Embed(title="버그가 발생하였습니다.", description=ex).set_footer(text=message.author, icon_url=message.author.avatar_url))
